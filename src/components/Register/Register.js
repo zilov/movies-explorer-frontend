@@ -1,6 +1,8 @@
 function Register() {
   return(
-    <div className="register"></div>
+    <div className="register">
+      <p>Страница регистрации</p>
+    </div>
   )
 }
 

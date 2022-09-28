@@ -1,6 +1,8 @@
 function SavedMovies() {
   return(
-    <div className="savedmovies"></div>
+    <div className="savedmovies">
+      <p>Страница сохраненных фильмов</p>
+    </div>
   )
 }
 

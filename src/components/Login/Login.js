@@ -1,6 +1,8 @@
 function Login() {
   return(
-    <div className="login"></div>
+    <div className="login">
+      <p>Страница входа</p>
+    </div>
   )
 }
 

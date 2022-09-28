@@ -1,6 +1,8 @@
 function Movies() {
   return(
-    <div className="movies"></div>
+    <div className="movies">
+      <p>Страница фильмов</p>
+    </div>
   )
 }
 
