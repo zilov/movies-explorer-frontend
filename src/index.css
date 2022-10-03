@@ -1,3 +1,5 @@
+@import url("./vendor/normalize.css");
+@import url("./fonts/inter.css");
 @import url("./components/Main/Main.css");
 @import url("./components/Movies/Movies.css");
 @import url("./components/SavedMovies/SavedMovies.css");
@@ -19,3 +21,4 @@
 @import url("./components/Movies/MoviesCard/MoviesCard.css");
 @import url("./components/SavedMovies/MoviesCardList/MoviesCardList.css");
 @import url("./components/SavedMovies/MoviesCard/MoviesCard.css");
+@import url("./components/NotFound/NotFound.css");
