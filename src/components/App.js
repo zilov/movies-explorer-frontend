@@ -9,6 +9,7 @@ import Movies from './Movies/Movies';
 import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
+import NotFound from './NotFound/NotFound';
 
 function App() {
   return (
@@ -33,6 +34,9 @@ function App() {
         </Route>
         <Route path="/profile">
           <Profile></Profile>
+        </Route>
+        <Route path='*'>
+          <NotFound></NotFound>
         </Route>
       </Switch>
       <Footer></Footer>
