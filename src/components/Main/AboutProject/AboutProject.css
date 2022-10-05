@@ -1,5 +1,71 @@
 .about-project{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
   margin: 0;
   margin-top: 100px;
   margin-bottom: 110px;
+}
+
+.about-project__grid-table {
+  display: grid;
+  margin: 70px 70px 110px 70px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content;
+  column-gap: 40px;
+  row-gap: 26px;
+}
+
+.about-project__subtitle {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: normal;
+}
+
+.about-project__paragraph {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about-project__grid-timing {
+  min-width: calc(100% - 140px);
+  display: grid;
+  margin-left: 70px;
+  margin-right: 70px;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 36px;
+  row-gap: 14px;
+}
+
+.about-project__timing-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  margin: 0;
+  align-self: center;
+}
+
+.about-project__timing-block_type_black {
+  background-color: black;
+  color: white;
+}
+
+.about-project__timing-block_type_grey {
+  background-color: #F2F2F2;
+}
+
+.about-project__timing-subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #A0A0A0;
 }
