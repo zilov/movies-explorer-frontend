@@ -1,7 +1,11 @@
+import FormSection from "../FormSection/FormSection";
+
 function Register() {
   return(
     <div className="register">
-      <p>Страница регистрации</p>
+      <FormSection header="Имя" id="form-register-name"/>
+      <FormSection header="E-mail" id="form-register-email"/>
+      <FormSection header="Пароль" id="form-register-password"/>
     </div>
   )
 }
