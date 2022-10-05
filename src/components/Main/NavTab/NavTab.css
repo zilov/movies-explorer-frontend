@@ -1,3 +1,16 @@
 .navtab{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  background-color: black;
+  min-height: 66px;
+}
+
+.navtab__link {
+  color: white;
+  text-decoration: underline;
+  font-size: 13px;
+  line-height: 16px;
+  margin-right: 40px;
 }

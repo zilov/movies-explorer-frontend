@@ -22,3 +22,17 @@
 @import url("./components/SavedMovies/MoviesCardList/MoviesCardList.css");
 @import url("./components/SavedMovies/MoviesCard/MoviesCard.css");
 @import url("./components/NotFound/NotFound.css");
+@import url("./components/FormSection/FormSection.css");
+
+
+.border {
+  border: pink solid 5px;
+}
+
+.border_blue {
+  border: blue solid 3px;
+}
+
+.border_green {
+  border: green solid 3px;
+}
