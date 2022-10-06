@@ -7,8 +7,7 @@ import Techs from "./Techs/Techs";
 
 function Main() {
   return(
-    <div className="main border">
-      <p>Главная страница</p>
+    <div className="main">
       <Promo/>
       <NavTab/>
       <AboutProject/>

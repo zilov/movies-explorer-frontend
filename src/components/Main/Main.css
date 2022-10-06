@@ -7,6 +7,12 @@
 .main__section-title {
   font-size: 22px;
   line-height: 27px;
+  font-weight: normal;
+  margin: 0;
+  margin-bottom: 23px;
+  margin-left: 70px;
+  display: flex;
+  align-self: start;
 }
 
 .main__section-title-underline {
