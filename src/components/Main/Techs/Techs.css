@@ -1,3 +1,47 @@
 .techs{
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F5F5F5;
   margin: 0;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.techs__title {
+  margin: 0;
+  margin-top: 90px;
+  margin-bottom: 26px;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.techs__text {
+  text-align: center;
+  width: 460px;
+  margin: 0;
+  margin-bottom: 100px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.techs__grid-table {
+  display: grid;
+  grid-template-columns: repeat(7 ,1fr);
+  column-gap: 10px;
+  list-style: none;
+}
+
+.techs__grid-table-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 60px;
+  background-color: #E8E8E8;
+  border-radius: 10px;
+
+
 }
