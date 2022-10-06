@@ -1,6 +1,15 @@
+import { NavLink } from "react-router-dom";
+import logo from "../../images/logo.svg";
+
 function Header() {
   return(
-    <div className="header"></div>
+    <div className="header">
+      <img src={logo} alt="Лого" className="header__logo"/>
+      <div className="header__links-box">
+        <NavLink to="/signup" className="header__register-btn">Регистрация</NavLink>
+        <NavLink to="/login" className="header__login-btn">Войти</NavLink>
+      </div>
+    </div>
   )
 }
 

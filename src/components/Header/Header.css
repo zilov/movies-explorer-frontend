@@ -1,3 +1,35 @@
 .header{
   margin: 0;
+  background-color: #F3C1F8;
+  padding: 21px 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__links-box {
+  display: flex;
+  align-items: center;
+}
+
+.header__register-btn {
+  font-size: 12px;
+  line-height: 16px;
+  margin-right: 30px;
+  text-decoration: none;
+  color: #000;
+}
+
+.header__login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 76px;
+  height: 32px;
+  border-radius: 3px;
+  background-color: #000;
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
 }
