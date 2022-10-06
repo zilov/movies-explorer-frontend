@@ -2,21 +2,18 @@ function Portfolio() {
   return(
     <div className="portfolio">
       <p className="portfolio__title">Портфолио</p>
-      <ul>
-        <li>
-          <a className="portfolio__link" href="">Статичный сайт</a>
-          <img className="potfolio__link-icon" alt="иконка ссылки"/>
-          <div className="portfolio__link-underline"/>
+      <ul className="portfolio__grid-table">
+        <li className="portfolio__grid-table-item">
+          <a className="portfolio__link" href="https://github.com/zilov">Статичный сайт</a>
+          <a href="https://github.com/zilov" className="portfolio__link-icon">↗</a>
         </li>
-        <li>
-          <a className="portfolio__link" href="">Адаптивный сайт</a>
-          <img className="potfolio__link-icon" alt="иконка ссылки"/>
-          <div className="portfolio__link-underline"/>
+        <li className="portfolio__grid-table-item">
+          <a className="portfolio__link" href="https://github.com/zilov">Адаптивный сайт</a>
+          <a href="https://github.com/zilov" className="portfolio__link-icon">↗</a>
         </li>
-        <li>
-          <a className="portfolio__link" href="">Одностраничное приложение</a>
-          <img className="potfolio__link-icon" alt="иконка ссылки"/>
-          <div className="portfolio__link-underline"/>
+        <li className="portfolio__grid-table-item">
+          <a className="portfolio__link" href="https://github.com/zilov">Одностраничное приложение</a>
+          <a href="https://github.com/zilov" className="portfolio__link-icon">↗</a>
         </li>
       </ul>
     </div>
