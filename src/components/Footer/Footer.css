@@ -2,7 +2,7 @@
   margin: 0 auto 20px;
   display: flex;
   flex-direction: column;
-  width: calc(100% - 140px);
+  width: calc(1280px - 140px);
 }
 
 .footer__title {
