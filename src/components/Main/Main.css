@@ -21,3 +21,20 @@
   width: 1140px;
   background-color: black;
 }
+
+@media screen and (max-width: 1279px) {
+  .main__section-title-underline {
+    width: 86.979%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .main__section-title-underline {
+    width: 88.75%;
+  }
+
+  .main__section-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
