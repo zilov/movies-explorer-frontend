@@ -5,10 +5,14 @@ function AboutProject() {
         <h2 className="main__section-title">О проекте</h2>
         <div className="main__section-title-underline"></div>
         <div className="about-project__grid-table">
-          <h3 className="about-project__subtitle">Дипломный проект включал 5 этапов</h3>
-          <h3 className="about-project__subtitle">На выполнение диплома ушло 5 недель</h3>
-          <p className="about-project__paragraph">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
-          <p className="about-project__paragraph">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+          <div>
+            <h3 className="about-project__subtitle">Дипломный проект включал 5 этапов</h3>
+            <p className="about-project__paragraph">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
+          </div>
+          <div>
+            <h3 className="about-project__subtitle">На выполнение диплома ушло 5 недель</h3>
+            <p className="about-project__paragraph">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+          </div>
         </div>
         <div className="about-project__grid-timing">
           <p className="about-project__timing-block about-project__timing-block_type_black">1 неделя</p>
