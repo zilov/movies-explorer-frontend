@@ -14,7 +14,7 @@ function Techs() {
           <li className="techs__grid-table-item">Git</li>
           <li className="techs__grid-table-item">Express.js</li>
           <li className="techs__grid-table-item">mongoDB</li>
-        </ul>
+        </ul> 
       </div>
     </div>
   )
