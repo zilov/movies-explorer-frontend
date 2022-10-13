@@ -43,6 +43,7 @@
   font-size: 30px;
   line-height: 50px;
   color: black;
+  letter-spacing: -0.04em;
   text-decoration: none;
 }
 
@@ -51,5 +52,52 @@
   margin: 0;
   font-size: 30px;
   line-height: 60px;
+  letter-spacing: -0.04em;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1279px) {
+  .portfolio{
+    margin: 0;
+    width: 768px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+
+  .portfolio__link-icon {
+    font-size: 28px;
+    line-height: 60px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio{
+    margin: 0;
+    width: 320px;
+  }
+
+  .portfolio__grid-table {
+    width: calc(100% - 28px);
+  }
+
+  .portfolio__title { 
+    margin-left: 14px;
+    margin-bottom: 40px;
+    font-size: 14px;
+    line-height: 20px;
+    mix-blend-mode: normal;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__link-icon {
+    font-size: 18px;
+    line-height: 28px;
+  }
 }
