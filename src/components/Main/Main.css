@@ -23,6 +23,10 @@
 }
 
 @media screen and (max-width: 1279px) {
+
+  .main__section-title {
+    margin-left: 50px;
+  }
   .main__section-title-underline {
     width: 86.979%;
   }
@@ -34,6 +38,7 @@
   }
 
   .main__section-title {
+    margin-left: 5.625%;
     font-size: 18px;
     line-height: 22px;
   }
