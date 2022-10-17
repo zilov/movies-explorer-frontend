@@ -1,3 +1,19 @@
-.movies{
+.movies {
   margin: 0;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1140px;
+  align-self: center;
+}
+
+@media screen and (max-width: 1279px) {
+  .movies {
+    grid-template-columns: 708px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .movies {
+    grid-template-columns: 300px;
+  }
 }
