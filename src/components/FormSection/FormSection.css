@@ -5,6 +5,7 @@
 }
 
 .form-section__header {
+  font-weight: 400;
   align-self: start;
   margin: 0;
   margin-bottom: 10px;
@@ -16,8 +17,8 @@
 
 .form-section__input {
   margin: 0;
-  min-width: 396px;
-  min-height: 46px;
+  width: 396px;
+  height: 46px;
   background: #F9F9F9;
   border-radius: 8px;
   border: none;
@@ -28,4 +29,10 @@
   font-size: 10px;
   line-height: 12px;
   color: #FF4062;
+}
+
+@media screen and (max-width: 767px) {
+  .form-section__input {
+    width: 260px;
+  }
 }
