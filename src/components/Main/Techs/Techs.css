@@ -69,6 +69,8 @@
   .techs__text {
     font-size: 11px;
     line-height: 16px;
+    width: 292px;
+    margin-bottom: 50px;
   }
 
   .techs__grid-table {
