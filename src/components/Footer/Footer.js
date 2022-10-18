@@ -2,9 +2,7 @@ import { useLocation } from "react-router";
 
 function Footer() {
   const location = useLocation();
-  if (["/signup", "/signin"].includes(location.pathname)) {
-    return null;
-  } else {
+  if (["/movies", "/saved-movies", "/"].includes(location.pathname)) {
     return(
       <div className="footer">
         <div className="footer__content">
@@ -19,6 +17,8 @@ function Footer() {
         </div>
       </div>
     )
+  } else {
+    return null;
   }
 }
             
