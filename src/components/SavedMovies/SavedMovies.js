@@ -1,8 +1,12 @@
+import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
+import SearchForm from "../Movies/SearchForm/SearchForm";
+
 function SavedMovies() {
   return(
-    <div className="savedmovies">
-      <p>Страница сохраненных фильмов</p>
-    </div>
+    <div className="saved-movies">
+      <SearchForm/>
+      <MoviesCardList/>
+  </div>
   )
 }
 
