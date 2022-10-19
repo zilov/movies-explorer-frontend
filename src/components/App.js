@@ -1,6 +1,5 @@
 import './App.css';
 import Header from './Header/Header';
-// import Navigation from './Navigation/Navigation';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import Main from './Main/Main';
@@ -10,12 +9,15 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './NotFound/NotFound';
+import { useLocation } from "react-router";
+import Navigation from './Navigation/Navigation';
 
 function App() {
+  const location = useLocation();
   return (
     <div className="app">
-      <Header/>
-      {/* <Navigation/> */}
+      <Header location={location}/>
+      <Navigation/>
       <Switch>
         <Route path="/signup">
           <Register></Register>
@@ -39,7 +41,7 @@ function App() {
           <NotFound></NotFound>
         </Route>
       </Switch>
-      <Footer></Footer>
+      <Footer location={location}></Footer>
     </div>
   );
 }
