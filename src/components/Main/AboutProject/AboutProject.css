@@ -1,7 +1,5 @@
 .about-project{
-  margin: 0;
-  margin-top: 100px;
-  margin-bottom: 110px;
+  margin: 100px auto 110px;
 }
 
 .about-project__content {
