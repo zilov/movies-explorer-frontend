@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useLocation } from "react-router";
-// import Navigation from "../Navigation/Navigation";
 
 function Header() {
   const location = useLocation();
@@ -22,7 +21,6 @@ function Header() {
       <div className="header header_type_white">
         <div className="header__content">
           <img src={logo} alt="Лого" className="header__logo"/>
-          {/* <Navigation/> */}
         </div>      
       </div>
     )
