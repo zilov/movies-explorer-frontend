@@ -67,6 +67,12 @@
     width: 339px;
     background-size: cover;
   }
+
+  .movies-card__favorite-btn {
+    margin-left: 31px;
+    background: none;
+    border: none;
+  }
  }
 
 @media screen and (max-width: 767px) {
@@ -81,5 +87,9 @@
     grid-row: 2;
     width: 300px;
     background-size: contain;
+  }
+
+  .movies-card__favorite-btn {
+    margin-left: 0;
   }
 }
