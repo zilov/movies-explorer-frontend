@@ -102,9 +102,8 @@
 
 @media screen and (max-width: 767px) {
 
-  .about-project__content {
-    margin-bottom: 70px;
-    margin-top: 70px;
+  .about-project {
+    margin: 70px auto 70px;
   }
 
   .about-project__grid-table {
