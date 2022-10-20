@@ -60,6 +60,10 @@
   margin-left: calc(364px - 16px);
 }
 
+.navigation__menu-link_active {
+  font-weight: bold;
+}
+
 .navigation__profile-icon {
   display: flex;
   align-self: center;
@@ -130,7 +134,8 @@
     line-height: 22px;
   }
 
-  .navigation__menu-link_underline {
+  .navigation__menu-link_active {
+    font-weight: normal;
     border-bottom: 2px solid black;
   }
 
