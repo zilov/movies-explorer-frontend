@@ -5,7 +5,7 @@ function SavedMovies() {
   return(
     <div className="saved-movies">
       <SearchForm/>
-      <MoviesCardList/>
+      <MoviesCardList cards_type="saved"/>
   </div>
   )
 }

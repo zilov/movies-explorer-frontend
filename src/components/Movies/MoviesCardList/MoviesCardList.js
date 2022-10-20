@@ -1,15 +1,14 @@
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList() {
+function MoviesCardList({cards_type="search"}) {
   return(
     <div className="movies-card-list">
-      <MoviesCard/>
-      <MoviesCard/>
-      <MoviesCard/>
-      <MoviesCard/>
-      <MoviesCard/>
-      <MoviesCard/>
-      <MoviesCard/>
+      <MoviesCard cardType={cards_type}/>
+      <MoviesCard cardType={cards_type}/>
+      <MoviesCard cardType={cards_type}/>
+      <MoviesCard cardType={cards_type}/>
+      <MoviesCard cardType={cards_type}/>
+      <MoviesCard cardType={cards_type}/>
     </div>
   )
 }
