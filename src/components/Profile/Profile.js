@@ -10,8 +10,8 @@ function Profile() {
         <h3 className="profile__info-key">E-mail</h3>
         <h3 className="profile__info-value">pochta@pochta.ru</h3>
       </div>
-      <button className="profile__edit-btn">Редактировать</button>
-      <button className="profile__logout-btn">Выйти из аккаунта</button>
+      <button className="profile__edit-btn link-opacity">Редактировать</button>
+      <button className="profile__logout-btn link-opacity">Выйти из аккаунта</button>
     </div>
   )
 }

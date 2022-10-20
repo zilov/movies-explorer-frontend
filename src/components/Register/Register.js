@@ -13,9 +13,9 @@ function Register() {
           <FormSection header="E-mail" id="form-register-email"/>
           <FormSection header="Пароль" id="form-register-password"/>
         </form>
-        <button type="submit" className="register__submit-btn">Зарегистрироваться</button>
+        <button type="submit" className="register__submit-btn button-opacity">Зарегистрироваться</button>
         <p className="register__paragraph">
-          Уже зарегистрированы?  <NavLink to="/signin" className="register__link">Войти</NavLink>
+          Уже зарегистрированы?  <NavLink to="/signin" className="register__link link-opacity">Войти</NavLink>
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 function Techs() {
   return(
-    <div className="techs">
+    <div className="techs" id="techs">
       <div className="techs__content">
         <h2 className="main__section-title">Технологии</h2>
         <div className="main__section-title-underline"></div>

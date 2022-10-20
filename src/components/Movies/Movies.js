@@ -6,7 +6,7 @@ function Movies() {
   <div className="movies">
     <SearchForm/>
     <MoviesCardList/>
-    <button className="movies__more-btn">Ещё</button>
+    <button className="movies__more-btn button-opacity">Ещё</button>
   </div>
   )
 }

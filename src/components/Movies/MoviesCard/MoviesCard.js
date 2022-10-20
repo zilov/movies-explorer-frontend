@@ -9,7 +9,7 @@ function MoviesCard() {
         <h2 className="movies-card__title">33 слова о дизайне</h2>
         <p className="movies-card__duration">1ч 47м</p>
       </div>
-      <button className="movies-card__favorite-btn" style={{backgroundImage: `url(${favorite_btn_active || favorite_btn_inactive})`}}/>
+      <button className="movies-card__favorite-btn button-opacity" style={{backgroundImage: `url(${favorite_btn_active || favorite_btn_inactive})`}}/>
       <img className="movies-card__image" alt="обложка фильма" src={card_default_img}/>
     </div>
   )

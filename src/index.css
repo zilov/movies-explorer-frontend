@@ -23,6 +23,16 @@
 @import url("./components/FormSection/FormSection.css");
 
 
+.link-opacity:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.button-opacity:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .border {
   border: pink solid 5px;
 }
