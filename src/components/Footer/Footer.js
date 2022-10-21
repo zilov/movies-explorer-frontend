@@ -1,8 +1,5 @@
-import { useLocation } from "react-router";
-
-function Footer() {
-  const location = useLocation();
-  if (["/movies", "/saved-movies", "/"].includes(location.pathname)) {
+function Footer({location}) {
+  if (["/movies", "/saved-movies", "/"].includes(location)) {
     return(
       <div className="footer">
         <div className="footer__content">

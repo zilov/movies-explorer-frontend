@@ -9,15 +9,14 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import NotFound from './NotFound/NotFound';
-import { useLocation } from "react-router";
 import Navigation from './Navigation/Navigation';
 
 function App() {
-  const location = useLocation();
+  const location = window.location.pathname;
   return (
     <div className="app">
       <Header location={location}/>
-      <Navigation/>
+      <Navigation location={location}/>
       <Switch>
         <Route path="/signup">
           <Register></Register>

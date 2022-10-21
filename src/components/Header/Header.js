@@ -1,10 +1,8 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
-import { useLocation } from "react-router";
 
-function Header() {
-  const location = useLocation();
-  if (location.pathname === "/") {
+function Header({location}) {
+  if (location === "/") {
     return(
       <div className="header">
         <div className="header__content">
@@ -16,7 +14,7 @@ function Header() {
         </div>      
       </div>
     )
-  } else if (["/movies", "/saved-movies", "/profile"].includes(location.pathname)) {
+  } else if (["/movies", "/saved-movies", "/profile"].includes(location)) {
     return(
       <div className="header header_type_white">
         <div className="header__content">

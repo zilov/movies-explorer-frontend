@@ -1,11 +1,10 @@
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import accountIcon from "../../images/account-icon.svg";
 
-function Navigation() {
-  const location = useLocation();
-  if (["/movies", "/saved-movies", "/profile"].includes(location.pathname)) {
-    const is_movies = location.pathname === "/movies";
-    const is_saved = location.pathname === "/saved-movies"
+function Navigation({location}) {
+  if (["/movies", "/saved-movies", "/profile"].includes(location)) {
+    const is_movies = location === "/movies";
+    const is_saved = location === "/saved-movies"
     return(
       <nav className="navigation">
         <div className="navigation__content">
