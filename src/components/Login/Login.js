@@ -16,7 +16,7 @@ function login() {
         </form>
         <button type="submit" className="login__submit-btn button-opacity">Войти</button>
         <p className="login__paragraph">
-          Еще не зарегистрированы?  <NavLink to="/signin" className="login__link link-opacity">Регистрация</NavLink>
+          Еще не зарегистрированы?  <NavLink to="/signup" className="login__link link-opacity">Регистрация</NavLink>
         </p>
       </div>
     </section>
