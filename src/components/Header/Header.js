@@ -6,7 +6,9 @@ function Header({location}) {
     return(
       <header className="header">
         <div className="header__content">
-          <img src={logo} alt="Лого" className="header__logo"/>
+          <NavLink to="/">
+            <img src={logo} alt="Лого" className="header__logo"/>
+          </NavLink>
           <div className="header__links-box">
             <NavLink to="/signup" className="header__register-btn link-opacity">Регистрация</NavLink>
             <NavLink to="/signin" className="header__login-btn button-opacity">Войти</NavLink>
@@ -18,7 +20,9 @@ function Header({location}) {
     return(
       <header className="header header_type_white">
         <div className="header__content">
-          <img src={logo} alt="Лого" className="header__logo"/>
+          <NavLink to="/">
+            <img src={logo} alt="Лого" className="header__logo"/>
+          </NavLink>
         </div>      
       </header>
     )

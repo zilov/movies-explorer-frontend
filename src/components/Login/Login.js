@@ -6,7 +6,9 @@ function login() {
   return(
     <section className="login">
       <div className="login__content">
-        <img src={logo} alt="Лого" className="login__logo"/>
+          <NavLink to="/">
+            <img src={logo} alt="Лого" className="login__logo"/>
+          </NavLink>
         <h2 className="login__title">Рады видеть!</h2>
         <form id="form-login" className="login__form">
           <FormSection header="E-mail" id="form-login-email"/>
