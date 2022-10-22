@@ -97,9 +97,8 @@
     background-size: cover;
   }
 
-  .movies-card__favorite-btn {
+  .movies-card__btn_type_favorite {
     margin-left: 31px;
-    background: none;
     border: none;
   }
  }
@@ -118,7 +117,7 @@
     background-size: contain;
   }
 
-  .movies-card__favorite-btn {
+  .movies-card__btn_type_favorite {
     margin-left: 0;
   }
 }
