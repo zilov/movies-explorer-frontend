@@ -12,10 +12,11 @@
   height: 36px;
   background: none;
   border: none;
-  border: 1px solid  #E8E8E8;
+  border: 2px solid  #E8E8E8;
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
+  border-radius: 3px;
 }
 
 @media screen and (max-width: 1279px) {
