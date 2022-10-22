@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 
 function login() {
   return(
-    <div className="login">
+    <section className="login">
       <div className="login__content">
         <img src={logo} alt="Лого" className="login__logo"/>
         <h2 className="login__title">Рады видеть!</h2>
@@ -17,7 +17,7 @@ function login() {
           Еще не зарегистрированы?  <NavLink to="/signin" className="login__link link-opacity">Регистрация</NavLink>
         </p>
       </div>
-    </div>
+    </section>
   )
 }
 

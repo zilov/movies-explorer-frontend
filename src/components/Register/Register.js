@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 
 function Register() {
   return(
-    <div className="register">
+    <section className="register">
       <div className="register__content">
         <img src={logo} alt="Лого" className="register__logo"/>
         <h2 className="register__title">Добро пожаловать!</h2>
@@ -18,7 +18,7 @@ function Register() {
           Уже зарегистрированы?  <NavLink to="/signin" className="register__link link-opacity">Войти</NavLink>
         </p>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -1,6 +1,6 @@
 function Portfolio() {
   return(
-    <div className="portfolio">
+    <section className="portfolio">
       <p className="portfolio__title">Портфолио</p>
       <ul className="portfolio__grid-table">
         <li className="portfolio__grid-table-item">
@@ -16,7 +16,7 @@ function Portfolio() {
           <a href="https://github.com/zilov/react-mesto-auth" className="portfolio__link-icon link-opacity" target="_blank" rel="noreferrer">↗</a>
         </li>
       </ul>
-    </div>
+    </section>
   )
 }
 

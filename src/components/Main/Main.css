@@ -1,4 +1,12 @@
-.main {
+.main-block {
+  margin: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-page {
   margin: 0;
   width: 100%;
   display: flex;

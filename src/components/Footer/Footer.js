@@ -1,7 +1,7 @@
 function Footer({location}) {
   if (["/movies", "/saved-movies", "/"].includes(location)) {
     return(
-      <div className="footer">
+      <footer className="footer">
         <div className="footer__content">
           <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
           <div className="footer__copyright-box">
@@ -12,7 +12,7 @@ function Footer({location}) {
             </div>
           </div>
         </div>
-      </div>
+      </footer>
     )
   } else {
     return null;

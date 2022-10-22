@@ -2,7 +2,7 @@ import avatar from "../../../images/avatar.jpg";
 
 function AboutMe() {
   return(
-    <div className="about-me" id="about-me">
+    <section className="about-me" id="about-me">
       <div className="about-me__content">
         <h2 className="main__section-title">Обо мне</h2>
         <div className="main__section-title-underline"></div>
@@ -15,7 +15,7 @@ function AboutMe() {
           <img className="about-me__photo" src={avatar} alt="фото для портфолио"/>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

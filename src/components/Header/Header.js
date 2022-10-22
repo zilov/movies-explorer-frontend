@@ -4,7 +4,7 @@ import logo from "../../images/logo.svg";
 function Header({location}) {
   if (location === "/") {
     return(
-      <div className="header">
+      <header className="header">
         <div className="header__content">
           <img src={logo} alt="Лого" className="header__logo"/>
           <div className="header__links-box">
@@ -12,15 +12,15 @@ function Header({location}) {
             <NavLink to="/signin" className="header__login-btn button-opacity">Войти</NavLink>
           </div>  
         </div>      
-      </div>
+      </header>
     )
   } else if (["/movies", "/saved-movies", "/profile"].includes(location)) {
     return(
-      <div className="header header_type_white">
+      <header className="header header_type_white">
         <div className="header__content">
           <img src={logo} alt="Лого" className="header__logo"/>
         </div>      
-      </div>
+      </header>
     )
   } else {
     return null;

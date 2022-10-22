@@ -16,7 +16,7 @@ import Navigation from "../Navigation/Navigation";
 
 function Main({location}) {
   return(
-    <section className="main-block">
+    <main className="main-block">
       <Navigation location={location}/>
       <Routes>
         <Route path="/signup" element={<Register/>}/>
@@ -36,7 +36,7 @@ function Main({location}) {
         <Route path="/profile" element={<Profile/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
-    </section>
+    </main>
   )
 }
 

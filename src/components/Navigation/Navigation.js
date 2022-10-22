@@ -9,7 +9,7 @@ function Navigation({location}) {
       <nav className="navigation">
         <div className="navigation__content">
           <input type="checkbox" className='navigation__menu-btn-checkbox'/>
-          <button className='navigation__menu-btn '/>
+          <button className='navigation__menu-btn' type="button"/>
           <li className="navigation__menu">
             <NavLink to='/' className="navigation__menu-link link-opacity">Главная</NavLink>
             <NavLink to='/movies' className={`navigation__menu-link link-opacity ${is_movies && "navigation__menu-link_active"}`}>Фильмы</NavLink>
