@@ -1,0 +1,54 @@
+@import url("./vendor/normalize.css");
+@import url("./fonts/inter.css");
+@import url("./components/Main/Main.css");
+@import url("./components/Movies/Movies.css");
+@import url("./components/SavedMovies/SavedMovies.css");
+@import url("./components/Register/Register.css");
+@import url("./components/Login/Login.css");
+@import url("./components/Profile/Profile.css");
+@import url("./components/Header/Header.css");
+@import url("./components/Navigation/Navigation.css");
+@import url("./components/Footer/Footer.css");
+@import url("./components/Main/Promo/Promo.css");
+@import url("./components/Main/NavTab/NavTab.css");
+@import url("./components/Main/AboutProject/AboutProject.css");
+@import url("./components/Main/Techs/Techs.css");
+@import url("./components/Main/AboutMe/AboutMe.css");
+@import url("./components/Main/Portfolio/Portfolio.css");
+@import url("./components/Movies/SearchForm/SearchForm.css");
+@import url("./components/Movies/Preloader/Preloader.css");
+@import url("./components/Movies/MoviesCardList/MoviesCardList.css");
+@import url("./components/Movies/MoviesCard/MoviesCard.css");
+@import url("./components/NotFound/NotFound.css");
+@import url("./components/FormSection/FormSection.css");
+
+
+a {
+  color: black;
+ }
+ 
+ a:visited {
+   color: black;
+ }
+
+.link-opacity:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.button-opacity:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.border {
+  border: pink solid 5px;
+}
+
+.border_blue {
+  border: blue solid 3px;
+}
+
+.border_green {
+  border: green solid 3px;
+}

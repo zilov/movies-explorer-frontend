@@ -1,0 +1,132 @@
+.movies-card{
+  margin: 0;
+  width: 364px;
+  display: grid;
+  position: relative;
+  grid-template-columns: 320px 44px;
+  grid-template-rows: 68px 203px;
+
+  background: #FDFDFD;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+.movies-card__info-box {
+  margin: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.movies-card__title {
+  margin-left: 14px;
+  margin-top: 14px;
+  margin-bottom: 9px;
+
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.movies-card__duration {
+  margin: 0;
+  margin-left: 14px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  line-height: 13px;
+  color: #A0A0A0;
+}
+
+.movies-card__btn {
+  margin: 0;
+  padding: 0;
+  grid-column: 2;
+  grid-row: 1;
+
+  width: 30px;
+  height: 30px;
+  margin-top: 19px;
+  margin-right: 14px;
+  background-color: #FDFDFD;
+  border: none;
+  z-index: 2;
+}
+
+.movies-card__btn_type_favorite {
+  background-image: url("../../../images/favorite-btn-inactive.svg");
+}
+
+.movies_card__btn_type_delete {
+  background-image: url("../../../images/movie-delete-btn.svg");
+}
+
+.movies-card__checkbox {
+  opacity: 0;
+  z-index: 3;
+  position: absolute;
+  top: 19px;
+  right: 14px;
+  margin: 0;
+  padding: 0;
+  grid-column: 2;
+  grid-row: 1;
+
+  width: 30px;
+  height: 30px;
+}
+
+.movies-card__checkbox:checked ~ .movies-card__btn_type_favorite {
+  background-image: url("../../../images/favorite-btn-active.svg");
+}
+
+.movies-card__image {
+  grid-column: 1-2;
+  grid-row: 2;
+  width: 364px;
+}
+
+ @media screen and (max-width: 1279px) {
+  .movies-card{
+    width: 339px;
+    grid-template-columns: 256px 44px;
+    grid-template-rows: 68px 190px;
+  }
+
+  .movies-card__image {
+    grid-column: 1-2;
+    grid-row: 2;
+    width: 339px;
+    background-size: cover;
+  }
+
+  .movies-card__btn_type_favorite {
+    margin-left: 31px;
+    border: none;
+  }
+
+  .movies_card__btn_type_delete {
+    margin-left: 31px;
+    border: none;
+  }
+ }
+
+@media screen and (max-width: 767px) {
+  .movies-card{
+    width: 300px;
+    grid-template-columns: 256px 44px;
+    grid-template-rows: 68px 168px;
+  }
+
+  .movies-card__image {
+    grid-column: 1-2;
+    grid-row: 2;
+    width: 300px;
+    background-size: contain;
+  }
+
+  .movies-card__btn_type_favorite {
+    margin-left: 0;
+  }
+
+  .movies_card__btn_type_delete {
+    margin-left: 0;
+  }
+}
