@@ -101,6 +101,11 @@
     margin-left: 31px;
     border: none;
   }
+
+  .movies_card__btn_type_delete {
+    margin-left: 31px;
+    border: none;
+  }
  }
 
 @media screen and (max-width: 767px) {
@@ -118,6 +123,10 @@
   }
 
   .movies-card__btn_type_favorite {
+    margin-left: 0;
+  }
+
+  .movies_card__btn_type_delete {
     margin-left: 0;
   }
 }
