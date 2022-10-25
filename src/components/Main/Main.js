@@ -12,15 +12,25 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Navigation from "../Navigation/Navigation";
+import Preloader from "../Preloader/Preloader";
 
 
-function Main({location}) {
+function Main({location, onLoginSubmit, onRegisterSubmit, isLoading}) {
+
   return(
     <main className="main-block">
       <Navigation location={location}/>
       <Routes>
-        <Route path="/signup" element={<Register/>}/>
-        <Route path="/signin" element={<Login/>}/>
+        <Route path="/signup" element={
+          <Register
+            handleRegister = {onRegisterSubmit}
+          />
+        }/>
+        <Route path="/signin" element={
+          <Login
+            handleLogin={onLoginSubmit}
+          />
+        }/>
         <Route exact path="/" element={
           <section className="main-page">
             <Promo className="main__section-content"/>
@@ -36,6 +46,7 @@ function Main({location}) {
         <Route path="/profile" element={<Profile/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
+      <Preloader isLoading={isLoading}/>
     </main>
   )
 }
