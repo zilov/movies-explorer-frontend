@@ -11,7 +11,6 @@ function Register({handleRegister}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password, name);
     handleRegister(email, password, name);
     setEmail("");
     setPassword("");

@@ -16,20 +16,18 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const jwt = Cookies.get('jwt')
+    const jwt = Cookies.get('jwt');
+    // console.log(`JWT Token: ${jwt}`);
     if (jwt) {
-      // trying to check token on backend => line 114
       MainApi.getProfileInfo()
         .then(() => {setLoggedIn(true)})
-        .catch(() => {setLoggedIn(false)})
+        .catch(() => {
+          Cookies.remove('jwt')
+          setLoggedIn(false)
+        })
     } else {
       setLoggedIn(false);
     }
-  }, [])
-
-  useEffect(() => {
-    checkToken().then(() => setLoggedIn(true))
-    .catch(() => setLoggedIn(false))
   }, [])
 
   const navigate = useNavigate();
@@ -49,7 +47,6 @@ function App() {
     setPreloader(true);
     login(email, password)
       .then((res) => {
-        Cookies.set('userEmail', email, {sameSite: false});
         setLoggedIn(true);
       })
     .catch(() => {console.log("Error in login submit!")})
@@ -59,7 +56,7 @@ function App() {
   const handleRegisterSubmit = (email, password, name) => {
     setPreloader(true);
     register(email, password, name).then((res) => {
-      if (res.message) {
+      if (res.data) {
         setPreloader(false)
         navigate('/signin');
       }
