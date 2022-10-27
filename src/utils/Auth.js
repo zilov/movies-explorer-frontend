@@ -1,6 +1,6 @@
 const { apiConfig } = require("./constants");
 
-const authUrl = apiConfig.url;
+const authUrl = apiConfig.mainApiUrl;
 
 function checkResponse(res, job) {
   if (res.ok) {
@@ -29,6 +29,17 @@ export const login = (email, password) => {
       credentials: 'include',
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({email, password}),
+    }
+  ).then((response) => {return checkResponse(response, job)})
+}
+
+export const logout = () => {
+  const job = 'logout'
+  return fetch(
+    `${authUrl}/signout`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {"Content-Type": "application/json"},
     }
   ).then((response) => {return checkResponse(response, job)})
 }

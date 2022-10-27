@@ -15,7 +15,7 @@ import Navigation from "../Navigation/Navigation";
 import Preloader from "../Preloader/Preloader";
 
 
-function Main({location, onLoginSubmit, onRegisterSubmit, isLoading}) {
+function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, isLoading}) {
 
   return(
     <main className="main-block">
@@ -43,7 +43,7 @@ function Main({location, onLoginSubmit, onRegisterSubmit, isLoading}) {
         }/>
         <Route path="/movies" element={<Movies/>}/>
         <Route path="/saved-movies" element={<SavedMovies/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/profile" element={<Profile onLogout={onLogoutSubmit}/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
       <Preloader isLoading={isLoading}/>

@@ -1,4 +1,10 @@
-function Profile() {
+function Profile({onLogout}) {
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    onLogout();
+  }
+
   return(
     <section className="profile">
       <h2 className="profile__header">Привет, Виталий!</h2>
@@ -11,7 +17,7 @@ function Profile() {
         <h3 className="profile__info-value">pochta@pochta.ru</h3>
       </div>
       <button className="profile__edit-btn link-opacity" type="submit">Редактировать</button>
-      <button className="profile__logout-btn link-opacity" type="button">Выйти из аккаунта</button>
+      <button className="profile__logout-btn link-opacity" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
     </section>
   )
 }

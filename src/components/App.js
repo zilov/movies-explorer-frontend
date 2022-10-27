@@ -4,7 +4,7 @@ import Main from './Main/Main';
 import Footer from './Footer/Footer';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { checkToken, login, register } from '../utils/Auth';
+import { checkToken, login, logout, register } from '../utils/Auth';
 import Cookies from 'js-cookie';
 import MainApi from '../utils/MainApi';
 
@@ -37,7 +37,6 @@ function App() {
       navigate('/movies');
     } else {
       navigate('/');
-      localStorage.removeItem('jwt');
     }
   }, [loggedIn]);
   
@@ -65,6 +64,18 @@ function App() {
     .finally(setPreloader(false));
   }
 
+  const handleLogoutSubmit = () => {
+    setPreloader(true);
+    logout().then((res) => {
+      if (res.status === 200) {
+        setPreloader(false);
+        setLoggedIn(false);
+      }
+    })
+    .catch(console.log("Error on logout!"))
+    .finally(setPreloader(false));
+  }
+
   return (
     <div className="app">
       <Header location={location}/>
@@ -72,6 +83,7 @@ function App() {
         location={location}
         onRegisterSubmit={handleRegisterSubmit}
         onLoginSubmit={handleLoginSubmit}
+        onLogoutSubmit={handleLogoutSubmit}
         isLoading={preloader}
       />
       <Footer location={location}/>
