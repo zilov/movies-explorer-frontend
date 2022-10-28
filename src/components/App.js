@@ -4,9 +4,10 @@ import Main from './Main/Main';
 import Footer from './Footer/Footer';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { checkToken, login, logout, register } from '../utils/Auth';
+import { login, logout, register } from '../utils/Auth';
 import Cookies from 'js-cookie';
 import MainApi from '../utils/MainApi';
+import MoviesApi from '../utils/MoviesApi';
 
 function App() {
   const location = useLocation().pathname;
@@ -31,14 +32,6 @@ function App() {
   }, [])
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (loggedIn) {
-      navigate('/movies');
-    } else {
-      navigate('/');
-    }
-  }, [loggedIn]);
   
   const handleLoginSubmit = (email, password) => {
     // сравниваем данные с данными сервера, если успешно залогинились - обновляем токен
@@ -76,6 +69,24 @@ function App() {
     .finally(setPreloader(false));
   }
 
+  // cards states and handlers
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/movies');
+      MoviesApi.getMovies()
+        .then((res) => {
+          setCards(res.map(item => item))
+        })
+        .catch(err => console.log(`Cannot get cards list ${err}`))
+    } else {
+      navigate('/');
+    }
+  }, [loggedIn]);
+
+
   return (
     <div className="app">
       <Header location={location}/>
@@ -84,6 +95,7 @@ function App() {
         onRegisterSubmit={handleRegisterSubmit}
         onLoginSubmit={handleLoginSubmit}
         onLogoutSubmit={handleLogoutSubmit}
+        cards={cards}
         isLoading={preloader}
       />
       <Footer location={location}/>
