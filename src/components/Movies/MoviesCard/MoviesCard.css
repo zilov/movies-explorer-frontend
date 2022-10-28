@@ -81,6 +81,8 @@
   grid-column: 1-2;
   grid-row: 2;
   width: 364px;
+  height: 203px;
+  object-fit: cover;
 }
 
  @media screen and (max-width: 1279px) {
@@ -94,7 +96,7 @@
     grid-column: 1-2;
     grid-row: 2;
     width: 339px;
-    background-size: cover;
+    height: 190px;
   }
 
   .movies-card__btn_type_favorite {
@@ -119,7 +121,7 @@
     grid-column: 1-2;
     grid-row: 2;
     width: 300px;
-    background-size: contain;
+    height: 168px;
   }
 
   .movies-card__btn_type_favorite {
