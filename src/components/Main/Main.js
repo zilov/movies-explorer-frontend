@@ -15,7 +15,7 @@ import Navigation from "../Navigation/Navigation";
 import Preloader from "../Preloader/Preloader";
 
 
-function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, isLoading}) {
+function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, cards, isLoading}) {
 
   return(
     <main className="main-block">
@@ -41,7 +41,11 @@ function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, isLoad
             <Portfolio className="main__section-content"/>
           </section>
         }/>
-        <Route path="/movies" element={<Movies/>}/>
+        <Route path="/movies" element={
+          <Movies 
+            cards={cards}
+          />
+        }/>
         <Route path="/saved-movies" element={<SavedMovies/>}/>
         <Route path="/profile" element={<Profile onLogout={onLogoutSubmit}/>}/>
         <Route path='*' element={<NotFound/>}/>

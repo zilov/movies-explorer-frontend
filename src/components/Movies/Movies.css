@@ -6,19 +6,6 @@
   align-self: center;
 }
 
-.movies__more-btn {
-  margin: 50px auto 80px;
-  width: 320px;
-  height: 36px;
-  background: none;
-  border: none;
-  border: 2px solid  #E8E8E8;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 15px;
-  border-radius: 3px;
-}
-
 @media screen and (max-width: 1279px) {
   .movies {
     grid-template-columns: 708px;
@@ -28,9 +15,5 @@
 @media screen and (max-width: 767px) {
   .movies {
     grid-template-columns: 300px;
-  }
-
-  .movies__more-btn {
-    width: 240px;
   }
 }
