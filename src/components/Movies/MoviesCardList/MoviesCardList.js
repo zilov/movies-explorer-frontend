@@ -45,6 +45,7 @@ function MoviesCardList({cards_type="search", cards}) {
       <section className="movies-card-list">
         {cards.slice(0, visibleCards).map(item => {
           return <MoviesCard
+            key={item.id}
             cardType={cards_type}
             title={item.nameRU}
             duration={convertMinutesToHours(item.duration)}
