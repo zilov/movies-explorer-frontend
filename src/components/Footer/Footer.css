@@ -1,4 +1,5 @@
 .footer{
+  display: flex;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -51,7 +52,6 @@
   .footer__content{
     width: calc(100% - 7.8125%);
   }
-
 }
 
 @media screen and (max-width: 767px) {
