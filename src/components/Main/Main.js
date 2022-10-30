@@ -15,20 +15,20 @@ import Navigation from "../Navigation/Navigation";
 import Preloader from "../Preloader/Preloader";
 
 
-function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, cards, isLoading}) {
+function Main({states, handlers, stateSetters}) {
 
   return(
     <main className="main-block">
-      <Navigation location={location}/>
+      <Navigation location={states.location}/>
       <Routes>
         <Route path="/signup" element={
           <Register
-            handleRegister = {onRegisterSubmit}
+            handleRegister = {handlers.onRegisterSubmit}
           />
         }/>
         <Route path="/signin" element={
           <Login
-            handleLogin={onLoginSubmit}
+            handleLogin={handlers.onLoginSubmit}
           />
         }/>
         <Route exact path="/" element={
@@ -43,14 +43,14 @@ function Main({location, onLoginSubmit, onRegisterSubmit, onLogoutSubmit, cards,
         }/>
         <Route path="/movies" element={
           <Movies 
-            cards={cards}
+            cards={states.cards}
           />
         }/>
         <Route path="/saved-movies" element={<SavedMovies/>}/>
-        <Route path="/profile" element={<Profile onLogout={onLogoutSubmit}/>}/>
+        <Route path="/profile" element={<Profile onLogout={handlers.onLogoutSubmit}/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
-      <Preloader isLoading={isLoading}/>
+      <Preloader isLoading={states.isLoading}/>
     </main>
   )
 }

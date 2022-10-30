@@ -72,6 +72,7 @@ function App() {
   // cards states and handlers
 
   const [cards, setCards] = useState([]);
+  const [savedCards, setSavedCards] = useState([]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -81,24 +82,53 @@ function App() {
           setCards(res.map(item => item))
         })
         .catch(err => console.log(`Cannot get cards list ${err}`))
+      MainApi.getMovies()
+        .then((res) => {
+          setSavedCards(res.map(item => item))
+        })
+        .catch(err => console.log(`Cannot get saved cards list ${err}`))
     } else {
       navigate('/');
     }
   }, [loggedIn]);
 
+  let states = {
+    location,
+    cards,
+    savedCards,
+    preloader
+  }
+
+  let handlers = {
+    handleLoginSubmit,
+    handleLogoutSubmit,
+    handleRegisterSubmit
+  }
+
+  let stateSetters = {
+    setCards,
+    setLoggedIn,
+    setPreloader,
+    setSavedCards
+  }
 
   return (
     <div className="app">
-      <Header location={location}/>
+      <Header location={states.location}/>
       <Main 
+        states={states}
+        handlers={handlers}
+        stateSetters={stateSetters}
         location={location}
         onRegisterSubmit={handleRegisterSubmit}
         onLoginSubmit={handleLoginSubmit}
         onLogoutSubmit={handleLogoutSubmit}
         cards={cards}
+        savedCards={savedCards}
+        setSavedCards={setSavedCards}
         isLoading={preloader}
       />
-      <Footer location={location}/>
+      <Footer location={states.location}/>
     </div>
   );
 }
