@@ -60,19 +60,19 @@
   padding: 0;
   border: none;
   border-radius: 50%;
-  background-color: #2BE080;
+  background-color: #F5F5F5;
   cursor: pointer;
   position: absolute;
   width: 16px;
   height: 16px;
-  right: 2px;
+  left: 2px;
   top: 2px;
   transition: .4s;
 }
 
 .search-form__checkbox:checked + .search-form__switch-slider {
-  background-color: #F5F5F5;
-  transform: translateX(-16px);
+  background-color: #2BE080;
+  transform: translateX(16px);
 }
 
 .search-form__short-title {
