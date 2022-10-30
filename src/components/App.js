@@ -73,6 +73,12 @@ function App() {
 
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
+  const [shorts, setShorts] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [visibleCards, setVisibleCards] = useState(0);
+  const [addCardNumber, setAddCardNumber] = useState(0);
+  const [cardsLeft, setCardsLeft] = useState(0)
 
   useEffect(() => {
     if (loggedIn) {
@@ -92,24 +98,89 @@ function App() {
     }
   }, [loggedIn]);
 
-  let states = {
+  // setting max initial cards number on movies page 
+  useEffect(() => {
+    setWidth(window.innerWidth)
+    if (width > 1279) {
+      setVisibleCards(12);
+      setAddCardNumber(3);
+    } else if (width > 767) {
+      setVisibleCards(8);
+      setAddCardNumber(2);
+    } else {
+      setVisibleCards(5);
+      setAddCardNumber(2);
+    }
+  }, [window.innerWidth]);
+
+
+  useEffect(() => {
+    setCardsLeft(matchedCards.length - visibleCards)
+    console.log(cardsLeft);
+  }, [matchedCards, shorts])
+
+  const handleCardSearch = (searchText) => {
+    const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description']
+    setMatchedCards(
+      cards.filter(card => {
+        let match = false;
+        for (const key of keys) {
+          if (card[key].toLowerCase().includes(searchText.toLowerCase())) {
+            console.log(searchText, key, card[key]);
+            match=true;
+            break;
+          }}
+        return match;
+      })
+    )
+  }
+
+  const handleLoadMoreCards = () => {
+    setVisibleCards(visibleCards + addCardNumber)
+    setCardsLeft(cardsLeft - addCardNumber)
+  }
+
+  const handleCardSave = (card) => {
+    console.log(card);
+    // MoviesApi.addMovieToFavorite(card);
+  }
+
+  const handleCardDelete = (cardId) => {
+    console.log(cardId);
+    // MoviesApi.deleteMovieFromFavorite(cardId);
+  }
+
+  const states = {
     location,
     cards,
     savedCards,
-    preloader
+    preloader,
+    matchedCards,
+    shorts,
+    width,
+    visibleCards,
+    addCardNumber,
+    cardsLeft
   }
 
-  let handlers = {
+  const handlers = {
     handleLoginSubmit,
     handleLogoutSubmit,
-    handleRegisterSubmit
+    handleRegisterSubmit,
+    handleCardSave,
+    handleCardDelete,
+    handleLoadMoreCards,
+    handleCardSearch
   }
 
-  let stateSetters = {
+  const stateSetters = {
     setCards,
     setLoggedIn,
     setPreloader,
-    setSavedCards
+    setSavedCards,
+    setMatchedCards,
+    setShorts,
+    setCardsLeft
   }
 
   return (
@@ -119,14 +190,6 @@ function App() {
         states={states}
         handlers={handlers}
         stateSetters={stateSetters}
-        location={location}
-        onRegisterSubmit={handleRegisterSubmit}
-        onLoginSubmit={handleLoginSubmit}
-        onLogoutSubmit={handleLogoutSubmit}
-        cards={cards}
-        savedCards={savedCards}
-        setSavedCards={setSavedCards}
-        isLoading={preloader}
       />
       <Footer location={states.location}/>
     </div>

@@ -1,26 +1,26 @@
 import { useState } from "react";
 
-function SearchForm({cards, setFilteredCards, setShorts}) {
+function SearchForm({states, handlers, stateSetters}) {
   const [search, setSearch] = useState('');
 
   const handleInput = (e) => {
     setSearch(e.target.value);
   }
 
+  const handleCheckboxClick = (e) => {
+    if (e.target.checked) {
+      stateSetters.setShorts(true)
+    } else {
+      stateSetters.setShorts(false)
+    }
+  }
+
   const filterCards = (e) => {
     e.preventDefault();
-    const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description']
-    setFilteredCards(
-      cards.filter(card => {
-        for (const key of keys) {
-          if (card[key].toLowerCase().includes(search.toLowerCase())) {
-            console.log(search, key, card[key]);
-            return card;
-          }
-        }
-      }
-    )
-  )}
+    stateSetters.setPreloader(true);
+    handlers.handleCardSearch(search);
+    stateSetters.setPreloader(false);
+  }
 
   return(
     <form className="search-form">
@@ -35,7 +35,7 @@ function SearchForm({cards, setFilteredCards, setShorts}) {
       <button className="search-form__submit-btn button-opacity" type="submit" onClick={filterCards}></button>
       <div className="search-form__switch">
         <label className="search-form__switch-box" htmlFor="short-checkbox">
-          <input className="search-form__checkbox" type="checkbox" id="short-checkbox"/>
+          <input className="search-form__checkbox" type="checkbox" id="short-checkbox" onClick={handleCheckboxClick}/>
           <div className="search-form__switch-slider"></div>
         </label>
         <p className="search-form__short-title">Короткометражки</p>

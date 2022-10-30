@@ -1,4 +1,5 @@
 .movies-card-list {
+  position: relative;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(3, 364px);
@@ -20,6 +21,10 @@
   font-size: 12px;
   line-height: 15px;
   border-radius: 3px;
+}
+
+.movies-card-list__more-btn_hidden {
+  display: none;
 }
 
 @media screen and (max-width: 1279px) {

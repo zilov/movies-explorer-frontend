@@ -41,16 +41,11 @@ function Main({states, handlers, stateSetters}) {
             <Portfolio className="main__section-content"/>
           </section>
         }/>
-        <Route path="/movies" element={
-          <Movies 
-            cards={states.cards}
-          />
-        }/>
-        <Route path="/saved-movies" element={<SavedMovies/>}/>
+        <Route path="/movies" element={<Movies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
+        <Route path="/saved-movies" element={<SavedMovies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
         <Route path="/profile" element={<Profile onLogout={handlers.onLogoutSubmit}/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
-      <Preloader isLoading={states.isLoading}/>
     </main>
   )
 }
