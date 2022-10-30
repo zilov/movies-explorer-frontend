@@ -32,6 +32,34 @@ class MainApi {
       body: JSON.stringify({name, email})
     }).then((res) => {return this._checkResponse(res, job)})
   }
+
+  getMovies() {
+    const job = 'Get saved movies list'
+    return fetch(`${this._url}/movies`, {
+      method: "GET",
+      credentials: 'include',
+      headers: this._headers,
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
+
+  saveMovie(movieInfo) {
+    const job = 'Save movie to main API'
+    return fetch(`${this._url}/movies`, {
+      method: "POST",
+      credentials: 'include',
+      headers: this._headers,
+      body: JSON.stringify(movieInfo)
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
+
+  deleteMovie(movieId) {
+    const job = 'Save movie to main API'
+    return fetch(`${this._url}/movies/:${movieId}`, {
+      method: "DELETE",
+      credentials: 'include',
+      headers: this._headers,
+    }).then((res) => {return this._checkResponse(res, job)})
+  }
 }
 
 export default new MainApi(apiConfig);
