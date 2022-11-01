@@ -15,7 +15,6 @@ function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
         return true;
       }
     }))
-    console.log(cardsToRender);
   }, [states.shorts, states.matchedCards])
   
   return(
@@ -23,11 +22,13 @@ function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
       <section className="movies-card-list">
         {cardsToRender.slice(0, states.visibleCards).map(item => {
           return <MoviesCard
-          key={item.id}
+          key={item.movieId}
           cardType={cards_type}
-          isSaved={false}
+          isSaved={states.savedCards.some(card => {return card.movieId === item.movieId})}
           cardInfo={item}
+          states={states}
           handlers={handlers}
+          stateSetters={stateSetters}
           />
         })}
       </section>

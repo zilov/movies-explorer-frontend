@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { apiConfig } from "../../../utils/constants";
 
-function MoviesCard({cardType, isSaved, cardInfo, handlers}) {
+function MoviesCard({cardType, isSaved, cardInfo, states, handlers, stateSetters}) {
 
   const [saved, setSaved] = useState(isSaved);
-  const [cardMainId, setCardMainId] = useState('');
   
   const toggleSaveMovie = (e) => {
-    console.log(saved);
     if (saved) {
       setSaved(false);
-      //handlers.onCardDelete(cardMainId);
+      handlers.handleCardDelete(states.savedCards.find(card => card.movieId === cardInfo.movieId)._id);
+      stateSetters.setSavedCards(states.savedCards.filter(card => {return card.movieId !== cardInfo.movieId}))
     } else {
       setSaved(true);
-      //handlers.onCardSave(cardInfo);
+      handlers.handleCardSave(cardInfo).then((res) => {
+        stateSetters.setSavedCards([res, ...states.savedCards])
+      });
     }
   }
 
@@ -40,7 +40,7 @@ function MoviesCard({cardType, isSaved, cardInfo, handlers}) {
         button-opacity`
       }
       />
-      <img src={`${apiConfig.moviesImagesUrl}${cardInfo.image.url}`} className="movies-card__image" alt="обложка фильма"/>
+      <img src={cardInfo.image} className="movies-card__image" alt="обложка фильма"/>
     </article>
   )
 }

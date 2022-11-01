@@ -8,6 +8,7 @@ import { login, logout, register } from '../utils/Auth';
 import Cookies from 'js-cookie';
 import MainApi from '../utils/MainApi';
 import MoviesApi from '../utils/MoviesApi';
+import { apiConfig } from '../utils/constants';
 
 function App() {
   const location = useLocation().pathname;
@@ -18,7 +19,6 @@ function App() {
 
   useEffect(() => {
     const jwt = Cookies.get('jwt');
-    // console.log(`JWT Token: ${jwt}`);
     if (jwt) {
       MainApi.getProfileInfo()
         .then(() => {setLoggedIn(true)})
@@ -85,7 +85,21 @@ function App() {
       navigate('/movies');
       MoviesApi.getMovies()
         .then((res) => {
-          setCards(res.map(item => item))
+          setCards(res.map(item => {
+            return {
+              nameEN: item.nameEN,
+              nameRU: item.nameRU,
+              trailerLink: item.trailerLink,
+              year: item.year,
+              country: item.country,
+              description: item.description,
+              director: item.director,
+              duration: item.duration,
+              image: `${apiConfig.moviesImagesUrl}${item.image.url}`,
+              thumbnail: `${apiConfig.moviesImagesUrl}${item.image.formats.thumbnail.url}`,
+              movieId: item.id,
+            }
+          }))
         })
         .catch(err => console.log(`Cannot get cards list ${err}`))
       MainApi.getMovies()
@@ -116,7 +130,6 @@ function App() {
 
   useEffect(() => {
     setCardsLeft(matchedCards.length - visibleCards)
-    console.log(cardsLeft);
   }, [matchedCards, shorts])
 
   const handleCardSearch = (searchText) => {
@@ -126,7 +139,6 @@ function App() {
         let match = false;
         for (const key of keys) {
           if (card[key].toLowerCase().includes(searchText.toLowerCase())) {
-            console.log(searchText, key, card[key]);
             match=true;
             break;
           }}
@@ -141,13 +153,13 @@ function App() {
   }
 
   const handleCardSave = (card) => {
-    console.log(card);
-    // MoviesApi.addMovieToFavorite(card);
+    return MoviesApi.addMovieToFavorite(card)
+      .then(res => {return res})
+      .catch(err => {console.log(`Cannot save card to MainApi: ${err}`)});
   }
 
   const handleCardDelete = (cardId) => {
-    console.log(cardId);
-    // MoviesApi.deleteMovieFromFavorite(cardId);
+    MoviesApi.deleteMovieFromFavorite(cardId)
   }
 
   const states = {
