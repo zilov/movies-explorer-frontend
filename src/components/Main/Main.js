@@ -12,7 +12,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Navigation from "../Navigation/Navigation";
-import Preloader from "../Preloader/Preloader";
 
 
 function Main({states, handlers, stateSetters}) {
@@ -23,12 +22,12 @@ function Main({states, handlers, stateSetters}) {
       <Routes>
         <Route path="/signup" element={
           <Register
-            handleRegister = {handlers.onRegisterSubmit}
+            handleRegister = {handlers.handleRegisterSubmit}
           />
         }/>
         <Route path="/signin" element={
           <Login
-            handleLogin={handlers.onLoginSubmit}
+            handleLogin={handlers.handleLoginSubmit}
           />
         }/>
         <Route exact path="/" element={
