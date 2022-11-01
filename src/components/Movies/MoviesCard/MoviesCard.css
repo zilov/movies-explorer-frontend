@@ -58,22 +58,7 @@
   background-image: url("../../../images/movie-delete-btn.svg");
 }
 
-.movies-card__checkbox {
-  opacity: 0;
-  z-index: 3;
-  position: absolute;
-  top: 19px;
-  right: 14px;
-  margin: 0;
-  padding: 0;
-  grid-column: 2;
-  grid-row: 1;
-
-  width: 30px;
-  height: 30px;
-}
-
-.movies-card__checkbox:checked ~ .movies-card__btn_type_favorite {
+.movies-card__btn_active {
   background-image: url("../../../images/favorite-btn-active.svg");
 }
 

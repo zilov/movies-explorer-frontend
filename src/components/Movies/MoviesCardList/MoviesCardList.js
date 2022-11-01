@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { apiConfig } from "../../../utils/constants";
 import Preloader from "../../Preloader/Preloader";
 import MoviesCard from "../MoviesCard/MoviesCard"
 
@@ -7,16 +6,6 @@ import MoviesCard from "../MoviesCard/MoviesCard"
 function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
 
   const [cardsToRender, setCardsToRender] = useState(states.matchedCards);
-
-  const convertMinutesToHours = (mins) => {
-    if (mins > 60) {
-      const hours = Math.floor(mins / 60);
-      const minutes = mins % 60
-      return `${hours}ч ${minutes}м` 
-    } else {
-      return `${mins}м`
-    }
-  }
 
   useEffect(() => {
     setCardsToRender(states.matchedCards.filter(card => {
@@ -34,13 +23,11 @@ function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
       <section className="movies-card-list">
         {cardsToRender.slice(0, states.visibleCards).map(item => {
           return <MoviesCard
-            id={item.id}
-            cardType={cards_type}
-            title={item.nameRU}
-            duration={convertMinutesToHours(item.duration)}
-            imageUrl={`${apiConfig.moviesImagesUrl}${item.image.url}`}
-            onCardSave={handlers.handleCardSave}
-            onCardDelete={handlers.handleCardDelete}
+          key={item.id}
+          cardType={cards_type}
+          isSaved={false}
+          cardInfo={item}
+          handlers={handlers}
           />
         })}
       </section>
