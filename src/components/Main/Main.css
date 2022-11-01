@@ -1,5 +1,5 @@
 .main-block {
-  margin: 0 auto 0;
+  margin: 0 auto 80px;
   width: 100%;
   display: flex;
   flex-direction: column;
