@@ -14,7 +14,7 @@ import NotFound from '../NotFound/NotFound';
 import Navigation from "../Navigation/Navigation";
 
 
-function Main({states, handlers, stateSetters}) {
+function Main({states, handlers, stateSetters, validator}) {
 
   return(
     <main className="main-block">
@@ -23,11 +23,13 @@ function Main({states, handlers, stateSetters}) {
         <Route path="/signup" element={
           <Register
             handleRegister = {handlers.handleRegisterSubmit}
+            validator={validator}
           />
         }/>
         <Route path="/signin" element={
           <Login
             handleLogin={handlers.handleLoginSubmit}
+            validator={validator}
           />
         }/>
         <Route exact path="/" element={
@@ -42,7 +44,7 @@ function Main({states, handlers, stateSetters}) {
         }/>
         <Route path="/movies" element={<Movies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
         <Route path="/saved-movies" element={<SavedMovies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
-        <Route path="/profile" element={<Profile onLogout={handlers.onLogoutSubmit}/>}/>
+        <Route path="/profile" element={<Profile onLogout={handlers.handleLogoutSubmit}/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </main>

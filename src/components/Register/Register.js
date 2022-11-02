@@ -1,21 +1,9 @@
 import FormSection from "../FormSection/FormSection";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
-import { useState } from "react";
+import { inputsValidation } from "../../utils/constants";
 
-function Register({handleRegister}) {
-
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleRegister(email, password, name);
-    setEmail("");
-    setPassword("");
-    setName("")
-  }
+function Register({handleRegister, validator}) {
 
   return(
     <section className="register">
@@ -24,37 +12,35 @@ function Register({handleRegister}) {
             <img src={logo} alt="Лого" className="register__logo"/>
           </NavLink>
         <h2 className="register__title">Добро пожаловать!</h2>
-        <form id="form-register" className="register__form">
+        <form id="form-register" className="register__form" onSubmit={validator.handleSubmit(handleRegister)}>
           <FormSection 
+            validator={validator}
             header="Имя"
             inputSettings={{
-              type: "text",
-              id: "registerNameInput",
-              placeholder: "Имя",
-              minLength:"2",
-              maxLength:'30',
-              setValue: setName
-              }}
+              id: "name",
+              validator: inputsValidation.firstName
+            }}
           />
           <FormSection
+            validator={validator}
             header="E-mail"
             inputSettings={{
               type: "email",
-              id: "registerEmailInput",
-              maxLength:'100',
-              setValue: setEmail
-              }}
+              id: "email",
+              validator: inputsValidation.email,
+            }}
           />
           <FormSection
+            validator={validator}
             header="Пароль"
             inputSettings={{
               type: "password",
-              id: "registerPasswordInput",
-              minLength:'8',
-              setValue: setPassword
+              id: "password",
+              validator: inputsValidation.password
             }}
           />
-          <button type="submit" className="register__submit-btn button-opacity" onClick={handleSubmit}>Зарегистрироваться</button>
+          <button 
+            type="submit" className="register__submit-btn button-opacity" disabled={!validator.isValid}>Зарегистрироваться</button>
         </form>
         <p className="register__paragraph">
           Уже зарегистрированы?  <NavLink to="/signin" className="register__link link-opacity">Войти</NavLink>

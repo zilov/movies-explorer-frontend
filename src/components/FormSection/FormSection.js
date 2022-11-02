@@ -1,20 +1,13 @@
-function FormSection({header, inputSettings}) {
-
-  const handleInput = (e) => {
-    inputSettings.setValue(e.target.value);
-  }
+function FormSection({header, inputSettings, validator}) {
 
   return(
     <div className="form-section">
       <h3 className="form-section__header">{header}</h3>
       <input className="form-section__input"
-        id={inputSettings.id}
         type={inputSettings.type}
-        minLength={inputSettings.minLength || "0"}
-        maxLength={inputSettings.maxLength || "9999"}
-        onChange={handleInput}
+        {...validator.register(inputSettings.id, inputSettings.validator) }
       />
-      <span className="form-section__err" id={`${inputSettings.id}-Error`}></span>
+      {validator.errors?.[inputSettings.id] && <p className="form-section__err">{validator.errors?.[inputSettings.id]?.message || "Ошибка валидации!"}</p>}
     </div>
   )
 }

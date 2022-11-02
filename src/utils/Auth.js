@@ -9,7 +9,7 @@ function checkResponse(res, job) {
   return Promise.reject(`Ошибка в ${job}`)
 }
 
-export const register = (email, password, name) => {
+export const registerRequest = (email, password, name) => {
   const job = 'register new user'
   return fetch(
     `${authUrl}/signup`, {
@@ -21,7 +21,7 @@ export const register = (email, password, name) => {
   ).then((response) => {return checkResponse(response, job)})
 }
 
-export const login = (email, password) => {
+export const loginRequest = (email, password) => {
   const job = 'login a user'
   return fetch(
     `${authUrl}/signin`, {
@@ -33,7 +33,7 @@ export const login = (email, password) => {
   ).then((response) => {return checkResponse(response, job)})
 }
 
-export const logout = () => {
+export const logoutRequest = () => {
   const job = 'logout'
   return fetch(
     `${authUrl}/signout`, {
