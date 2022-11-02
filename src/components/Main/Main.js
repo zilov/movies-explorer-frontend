@@ -44,7 +44,14 @@ function Main({states, handlers, stateSetters, validator}) {
         }/>
         <Route path="/movies" element={<Movies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
         <Route path="/saved-movies" element={<SavedMovies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
-        <Route path="/profile" element={<Profile onLogout={handlers.handleLogoutSubmit}/>}/>
+        <Route path="/profile" element={
+          <Profile
+            onEdit={handlers.handleUpdateUserInfo} 
+            onLogout={handlers.handleLogoutSubmit}
+            validator={validator}
+            states={states}
+          />
+        }/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </main>
