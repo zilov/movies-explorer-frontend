@@ -40,7 +40,9 @@ function MoviesCard({isSaved, cardInfo, states, handlers, stateSetters}) {
         button-opacity`
       }
       />
-      <img src={cardInfo.image} className="movies-card__image" alt="обложка фильма"/>
+      <a href={cardInfo.trailerLink} target={"_blank"} className="link-opacity">
+        <img src={cardInfo.image} className="movies-card__image" alt="обложка фильма"/>
+      </a>
     </article>
   )
 }
