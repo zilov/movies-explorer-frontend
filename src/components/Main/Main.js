@@ -12,6 +12,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Navigation from "../Navigation/Navigation";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
 function Main({states, handlers, stateSetters, validator}) {
@@ -42,30 +43,30 @@ function Main({states, handlers, stateSetters, validator}) {
             <Portfolio className="main__section-content"/>
           </section>
         }/>
-        <Route path="/movies" element={
+        <Route path="/movies" element={<ProtectedRoute states={states} element={
           <Movies 
             states={states}
             handlers={handlers}
             stateSetters={stateSetters}
             validator={validator}
           />}
-        />
-        <Route path="/saved-movies" element={
+        />}/>
+        <Route path="/saved-movies" element={<ProtectedRoute states={states} element={
           <SavedMovies 
             states={states}
             handlers={handlers}
             stateSetters={stateSetters}
             validator={validator}
           />}
-        />
-        <Route path="/profile" element={
+        />}/>
+        <Route path="/profile" element={<ProtectedRoute states={states} element={
           <Profile
             onEdit={handlers.handleUpdateUserInfo} 
             onLogout={handlers.handleLogoutSubmit}
             validator={validator}
             states={states}
           />
-        }/>
+        }/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </main>
