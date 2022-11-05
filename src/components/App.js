@@ -24,10 +24,12 @@ function App() {
     if (jwt) {
       MainApi.getProfileInfo()
         .then((res) => {
+          console.log(res);
           setCurrentUser(res);
           setLoggedIn(true);
         })
         .catch(() => {
+          console.log("Error in getting profile info!");
           Cookies.remove('jwt')
           setLoggedIn(false)
         })
@@ -46,8 +48,8 @@ function App() {
       .then((res) => {
         setLoggedIn(true);
       })
-    .catch(() => {console.log("Error in login submit!")})
-    .finally(setPreloader(false));
+      .catch(() => {console.log("Error in login submit!")})
+      .finally(setPreloader(false));
   }
 
   const handleRegisterSubmit = ({email, password, name}) => {
@@ -55,7 +57,7 @@ function App() {
     registerRequest(email, password, name).then((res) => {
       if (res.data) {
         setPreloader(false)
-        navigate('/signin');
+        handleLoginSubmit({email, password});
       }
     })
     .catch(console.log("Error on register submit!"))
@@ -122,6 +124,9 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
+      MainApi.getProfileInfo()
+        .then((res) => setCurrentUser(res))
+        .catch(() => console.log("Error in getting profile info!"))
       getSavedMovies();
       navigate('/movies');
     } else {
