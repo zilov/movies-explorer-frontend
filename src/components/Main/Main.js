@@ -18,7 +18,7 @@ function Main({states, handlers, stateSetters, validator}) {
 
   return(
     <main className="main-block">
-      <Navigation states={states}/>
+      <Navigation states={states} stateSetters={stateSetters}/>
       <Routes>
         <Route path="/signup" element={
           <Register

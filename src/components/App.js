@@ -99,6 +99,7 @@ function App() {
   const [addCardNumber, setAddCardNumber] = useState(0);
   const [cardsLeft, setCardsLeft] = useState(0);
   const [preloader, setPreloader] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     console.log("Location is updated!");
@@ -270,7 +271,8 @@ function App() {
     cardsToSearchIn,
     matchedCards,
     searchTimes,
-    lastSearchText
+    lastSearchText,
+    isMenuOpen
   }
 
   const handlers = {
@@ -290,7 +292,8 @@ function App() {
     setPreloader,
     setSavedCards,
     setShorts,
-    setCardsLeft
+    setCardsLeft,
+    setIsMenuOpen
   }
 
   // validation hook
