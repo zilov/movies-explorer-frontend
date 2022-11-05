@@ -18,7 +18,7 @@ function Main({states, handlers, stateSetters, validator}) {
 
   return(
     <main className="main-block">
-      <Navigation location={states.location}/>
+      <Navigation states={states}/>
       <Routes>
         <Route path="/signup" element={
           <Register
@@ -42,8 +42,22 @@ function Main({states, handlers, stateSetters, validator}) {
             <Portfolio className="main__section-content"/>
           </section>
         }/>
-        <Route path="/movies" element={<Movies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
-        <Route path="/saved-movies" element={<SavedMovies states={states} handlers={handlers} stateSetters={stateSetters}/>}/>
+        <Route path="/movies" element={
+          <Movies 
+            states={states}
+            handlers={handlers}
+            stateSetters={stateSetters}
+            validator={validator}
+          />}
+        />
+        <Route path="/saved-movies" element={
+          <SavedMovies 
+            states={states}
+            handlers={handlers}
+            stateSetters={stateSetters}
+            validator={validator}
+          />}
+        />
         <Route path="/profile" element={
           <Profile
             onEdit={handlers.handleUpdateUserInfo} 

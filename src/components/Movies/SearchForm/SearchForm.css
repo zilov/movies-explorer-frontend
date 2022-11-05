@@ -35,10 +35,22 @@
   top: 6px;
 }
 
+.search-form__error {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+    color: #FF4062;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+}
+
 .search-form__switch {
   display: flex;
   align-self: center;
-  margin-top: 42px;
+  margin-top: 25px;
 }
 
 .search-form__switch-box {
