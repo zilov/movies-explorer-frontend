@@ -16,6 +16,10 @@
   font-weight: 500;
 }
 
+.navtab__link:visited {
+  color: white;
+}
+
 @media screen and (max-width: 767px) {
   .navtab__link {
     margin-right: 40px;
