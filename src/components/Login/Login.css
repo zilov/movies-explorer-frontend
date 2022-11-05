@@ -22,6 +22,7 @@
 }
 
 .login__submit-btn {
+  width: 100%;
   margin-top: calc(179px - 22px);
   padding: 0;
   height: 45px;
