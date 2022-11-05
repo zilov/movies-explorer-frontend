@@ -1,36 +1,30 @@
-import { useEffect, useState } from "react";
 import Preloader from "../../Preloader/Preloader";
 import MoviesCard from "../MoviesCard/MoviesCard"
 
 
-function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
-
-  const [cardsToRender, setCardsToRender] = useState(states.matchedCards);
-
-  useEffect(() => {
-    setCardsToRender(states.matchedCards.filter(card => {
-      if (states.shorts && card.duration > 40) {
-        return false;
-      } else {
-        return true;
-      }
-    }))
-  }, [states.shorts, states.matchedCards])
+function MoviesCardList({states, handlers, stateSetters}) {
   
   return(
     <section className="movies-cards">
       <section className="movies-card-list">
-        {cardsToRender.slice(0, states.visibleCards).map(item => {
-          return <MoviesCard
-          key={item.movieId}
-          cardType={cards_type}
-          isSaved={states.savedCards.some(card => {return card.movieId === item.movieId})}
-          cardInfo={item}
-          states={states}
-          handlers={handlers}
-          stateSetters={stateSetters}
-          />
-        })}
+        {
+          states.lastSearchText === '' || states.searchTimes === 0
+            ? <p className="movies-card-list__message">Введите ключевое слово</p>
+            : states.preloader 
+              ? <Preloader/> 
+              : states.matchedCards.length === 0 
+                ? <p className="movies-card-list__message">Ничего не найдено ;(</p>
+                : states.cardsToRender.slice(0, states.visibleCards).map(item => {
+                    return <MoviesCard
+                    key={item.movieId}
+                    isSaved={states.savedCards.some(card => {return card.movieId === item.movieId})}
+                    cardInfo={item}
+                    states={states}
+                    handlers={handlers}
+                    stateSetters={stateSetters}
+                    />
+                  })
+        }
       </section>
       <button 
         className={
@@ -41,7 +35,6 @@ function MoviesCardList({cards_type="search", states, handlers, stateSetters}) {
         type="button"
         onClick={handlers.handleLoadMoreCards}
       >Ещё</button>
-      <Preloader states={states}/>
     </section>
   )
 }

@@ -4,15 +4,17 @@ import Main from './Main/Main';
 import Footer from './Footer/Footer';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
-import { login, logout, register } from '../utils/Auth';
+import { loginRequest, logoutRequest, registerRequest } from '../utils/Auth';
 import Cookies from 'js-cookie';
 import MainApi from '../utils/MainApi';
 import MoviesApi from '../utils/MoviesApi';
 import { apiConfig } from '../utils/constants';
+import { useForm } from 'react-hook-form';
+import { CurrentUserContext } from '../contexts/CurrentUser';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState({});
   const location = useLocation().pathname;
-  const [preloader, setPreloader] = useState(false);
 
   // Auth states and handlers
   const [loggedIn, setLoggedIn] = useState(false);
@@ -21,7 +23,10 @@ function App() {
     const jwt = Cookies.get('jwt');
     if (jwt) {
       MainApi.getProfileInfo()
-        .then(() => {setLoggedIn(true)})
+        .then((res) => {
+          setCurrentUser(res);
+          setLoggedIn(true);
+        })
         .catch(() => {
           Cookies.remove('jwt')
           setLoggedIn(false)
@@ -33,11 +38,11 @@ function App() {
 
   const navigate = useNavigate();
   
-  const handleLoginSubmit = (email, password) => {
+  const handleLoginSubmit = ({email, password}) => {
     // сравниваем данные с данными сервера, если успешно залогинились - обновляем токен
     // если не успешно - открываем попап ошибки
     setPreloader(true);
-    login(email, password)
+    loginRequest(email, password)
       .then((res) => {
         setLoggedIn(true);
       })
@@ -45,9 +50,9 @@ function App() {
     .finally(setPreloader(false));
   }
 
-  const handleRegisterSubmit = (email, password, name) => {
+  const handleRegisterSubmit = ({email, password, name}) => {
     setPreloader(true);
-    register(email, password, name).then((res) => {
+    registerRequest(email, password, name).then((res) => {
       if (res.data) {
         setPreloader(false)
         navigate('/signin');
@@ -59,7 +64,7 @@ function App() {
 
   const handleLogoutSubmit = () => {
     setPreloader(true);
-    logout().then((res) => {
+    logoutRequest().then((res) => {
       if (res.status === 200) {
         setPreloader(false);
         setLoggedIn(false);
@@ -69,46 +74,59 @@ function App() {
     .finally(setPreloader(false));
   }
 
+  const handleUpdateUserInfo = (name, email) => {
+    return MainApi.updateProfileInfo(name, email)
+      .then(() => {
+        setCurrentUser({name, email});
+      })
+      .catch(() => console.log("Error on update user info!"))
+  }
+
   // cards states and handlers
 
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+  const [cardsToSearchIn, setCardsToSearchIn] = useState(cards);
   const [matchedCards, setMatchedCards] = useState([]);
+  const [lastMainMatchedCards, setLastMainMatchedCards] = useState([]);
+  const [lastSavedMatchedCards, setLastSavedMatchedCards] = useState([]);
+  const [cardsToRender, setCardsToRender] = useState([]);
+  const [searchTimes, setSearchTimes] = useState(0);
+  const [lastSearchText, setLastSearchText] = useState('');
   const [shorts, setShorts] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [visibleCards, setVisibleCards] = useState(0);
   const [addCardNumber, setAddCardNumber] = useState(0);
-  const [cardsLeft, setCardsLeft] = useState(0)
+  const [cardsLeft, setCardsLeft] = useState(0);
+  const [preloader, setPreloader] = useState(false);
+
+  useEffect(() => {
+    console.log("Location is updated!");
+    setMatchedCards([]);
+    if (location === "/saved-movies") {
+      if (lastSavedMatchedCards.length === 0) {
+        setMatchedCards(savedCards);
+      } else {
+        setMatchedCards(lastSavedMatchedCards);
+      }
+      setCardsToSearchIn(savedCards); 
+    } else if (location === "/movies") {
+      if (lastMainMatchedCards.length !== 0) {
+        setMatchedCards(lastMainMatchedCards);
+      }
+      setCardsToSearchIn(cards);
+    }
+  }, [location])
+
 
   useEffect(() => {
     if (loggedIn) {
+      getSavedMovies();
       navigate('/movies');
-      MoviesApi.getMovies()
-        .then((res) => {
-          setCards(res.map(item => {
-            return {
-              nameEN: item.nameEN,
-              nameRU: item.nameRU,
-              trailerLink: item.trailerLink,
-              year: item.year,
-              country: item.country,
-              description: item.description,
-              director: item.director,
-              duration: item.duration,
-              image: `${apiConfig.moviesImagesUrl}${item.image.url}`,
-              thumbnail: `${apiConfig.moviesImagesUrl}${item.image.formats.thumbnail.url}`,
-              movieId: item.id,
-            }
-          }))
-        })
-        .catch(err => console.log(`Cannot get cards list ${err}`))
-      MainApi.getMovies()
-        .then((res) => {
-          setSavedCards(res.map(item => item))
-        })
-        .catch(err => console.log(`Cannot get saved cards list ${err}`))
     } else {
       navigate('/');
+      setCards([]);
+      setSavedCards([]);
     }
   }, [loggedIn]);
 
@@ -127,24 +145,98 @@ function App() {
     }
   }, [window.innerWidth]);
 
+  useEffect(() => {
+    setCardsLeft(cardsToRender.length - visibleCards)
+  }, [shorts, cardsToRender])
 
   useEffect(() => {
-    setCardsLeft(matchedCards.length - visibleCards)
-  }, [matchedCards, shorts])
+    console.log("Setting cards to render");
+    setCardsToRender(
+      matchedCards.filter(card => {
+        if (shorts && card.duration > 40) {
+          return false;
+        }
+        return true;
+      })
+    )
+    if (location === "/movies") {
+      setLastMainMatchedCards(matchedCards);
+    } else {
+      setLastSavedMatchedCards(matchedCards);
+    }
+    console.log(`Matched: ${matchedCards}`);
+  }, [shorts, matchedCards])
 
-  const handleCardSearch = (searchText) => {
-    const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description']
+  const handleCardsFilter = (searchInput, cards) => {
+    const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description'];
     setMatchedCards(
       cards.filter(card => {
         let match = false;
+        // filtering by search input
         for (const key of keys) {
-          if (card[key].toLowerCase().includes(searchText.toLowerCase())) {
+          if (card[key].toLowerCase().includes(searchInput.toLowerCase())) {
             match=true;
             break;
           }}
         return match;
       })
-    )
+      )
+    setPreloader(false);
+  }
+
+  const getMovies = () => {
+    return MoviesApi.getMovies()
+      .then((res) => {
+        setPreloader(true);
+        const cards = res.map(item => {
+          return {
+            nameEN: item.nameEN,
+            nameRU: item.nameRU,
+            trailerLink: item.trailerLink,
+            year: item.year,
+            country: item.country,
+            description: item.description,
+            director: item.director,
+            duration: item.duration,
+            image: `${apiConfig.moviesImagesUrl}${item.image.url}`,
+            thumbnail: `${apiConfig.moviesImagesUrl}${item.image.formats.thumbnail.url}`,
+            movieId: item.id,
+          }})
+        setCards(cards);
+        return cards;
+      })
+      .catch(err => console.log(`Cannot get cards list ${err}`))
+      .finally(() => setPreloader(false))
+  }
+
+  const getSavedMovies = () => {
+    return MainApi.getMovies()
+      .then((res) => {
+        setSavedCards(res.map(item => item))    
+      })
+      .catch(err => console.log(`Cannot get saved cards list ${err}`))
+  }
+
+  const handleCardSearch = ({search}) => {
+    setLastSearchText(search);
+    setSearchTimes(searchTimes + 1);
+    if (search === '') {
+      console.log("Empty input!");
+      return;
+    }
+    setPreloader(true);
+    console.log(preloader);
+    if (location === "/movies") {
+      if (cards.length === 0) {
+        getMovies().then((cards) => {
+          handleCardsFilter(search, cards);
+        });
+      } else {
+        handleCardsFilter(search, cards);
+      }
+    } else {
+      handleCardsFilter(search, savedCards);
+    }
   }
 
   const handleLoadMoreCards = () => {
@@ -164,25 +256,32 @@ function App() {
 
   const states = {
     location,
+    loggedIn,
+    currentUser,
     cards,
     savedCards,
     preloader,
-    matchedCards,
     shorts,
     width,
     visibleCards,
     addCardNumber,
-    cardsLeft
+    cardsLeft,
+    cardsToRender,
+    cardsToSearchIn,
+    matchedCards,
+    searchTimes,
+    lastSearchText
   }
 
   const handlers = {
     handleLoginSubmit,
     handleLogoutSubmit,
     handleRegisterSubmit,
+    handleUpdateUserInfo,
     handleCardSave,
     handleCardDelete,
     handleLoadMoreCards,
-    handleCardSearch
+    handleCardSearch,
   }
 
   const stateSetters = {
@@ -190,21 +289,37 @@ function App() {
     setLoggedIn,
     setPreloader,
     setSavedCards,
-    setMatchedCards,
     setShorts,
     setCardsLeft
   }
 
+  // validation hook
+
+  const {
+    register,
+    formState: {
+      errors, isValid
+    },
+    handleSubmit,
+  } = useForm({mode: "onBlur"})
+
+  const validator = {
+    register, errors, isValid, handleSubmit
+  }
+
   return (
-    <div className="app">
-      <Header location={states.location}/>
-      <Main 
-        states={states}
-        handlers={handlers}
-        stateSetters={stateSetters}
-      />
-      <Footer location={states.location}/>
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        <Header location={states.location}/>
+        <Main 
+          states={states}
+          handlers={handlers}
+          stateSetters={stateSetters}
+          validator={validator}
+        />
+        <Footer location={states.location}/>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

@@ -36,5 +36,12 @@ export const inputsValidation = {
       value: '8',
       message: "Минимальная длина пароля - 8 символов"
     }
+  },
+  search: {
+    required: "Запрос не может быть пустым",
+    maxLength: {
+      value: "30",
+      message: "Запрос не может быть длиннее 30 символов"
+    }
   }
 }

@@ -7,6 +7,14 @@
   gap: 30px 24px;
 }
 
+.movies-card-list__message {
+  grid-column: 1 / 4;
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+}
+
 .movies-card-list__more-btn {
   display: flex;
   justify-content: center;
@@ -31,6 +39,10 @@
   .movies-card-list {
     grid-template-columns: repeat(2, 339px);
     gap: 36px 30px;
+  }
+
+  .movies-card-list__message {
+    grid-column: 1 / 3;
   }
 }
 

@@ -24,11 +24,11 @@
 
 a {
   color: black;
- }
+}
  
- a:visited {
-   color: black;
- }
+a:visited {
+  color: black;
+}
 
 .link-opacity:hover {
   cursor: pointer;
