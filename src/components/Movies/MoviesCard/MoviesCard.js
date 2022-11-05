@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function MoviesCard({cardType, isSaved, cardInfo, states, handlers, stateSetters}) {
+function MoviesCard({isSaved, cardInfo, states, handlers, stateSetters}) {
 
   const [saved, setSaved] = useState(isSaved);
   
@@ -35,8 +35,8 @@ function MoviesCard({cardType, isSaved, cardInfo, states, handlers, stateSetters
       </div>
       <button type="button" onClick={toggleSaveMovie} className={
         `movies-card__btn
-        ${saved && "movies-card__btn_active"} 
-        ${cardType === "search" ? "movies-card__btn_type_favorite" : "movies_card__btn_type_delete"}
+        ${states.location === "/movies" && saved && "movies-card__btn_active"} 
+        ${states.location === "/movies" ? "movies-card__btn_type_favorite" : "movies_card__btn_type_delete"}
         button-opacity`
       }
       />
