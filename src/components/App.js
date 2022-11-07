@@ -86,38 +86,48 @@ function App() {
 
   // cards states and handlers
 
+  // full cards lists states
   const [cards, setCards] = useState([]);
   const [savedCards, setSavedCards] = useState([]);
+  
+  // filtered cards lists states
   const [cardsToSearchIn, setCardsToSearchIn] = useState(cards);
   const [matchedCards, setMatchedCards] = useState([]);
-  const [lastMainMatchedCards, setLastMainMatchedCards] = useState([]);
-  const [lastSavedMatchedCards, setLastSavedMatchedCards] = useState([]);
   const [cardsToRender, setCardsToRender] = useState([]);
-  const [searchTimes, setSearchTimes] = useState(0);
-  const [lastSearchText, setLastSearchText] = useState('');
+  
+  // search states
+  const [searchText, setSearchText] = useState('');
   const [shorts, setShorts] = useState(false);
+  
+  // cards visibility states
   const [width, setWidth] = useState(window.innerWidth);
   const [visibleCards, setVisibleCards] = useState(0);
   const [addCardNumber, setAddCardNumber] = useState(0);
   const [cardsLeft, setCardsLeft] = useState(0);
+
+  // other states
   const [preloader, setPreloader] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 
   useEffect(() => {
     console.log("Location is updated!");
     setMatchedCards([]);
+    setSearchText('');
+    setShorts(false);
+    handleCardDelete("636145a6d06489e02485b6dd")
+    console.log("Search: ", searchText);
     if (location === "/saved-movies") {
-      if (lastSavedMatchedCards.length === 0) {
-        setMatchedCards(savedCards);
-      } else {
-        setMatchedCards(lastSavedMatchedCards);
-      }
+      setSearchText('bla')
+      setMatchedCards(savedCards);
       setCardsToSearchIn(savedCards); 
     } else if (location === "/movies") {
-      if (lastMainMatchedCards.length !== 0) {
-        setMatchedCards(lastMainMatchedCards);
-      }
       setCardsToSearchIn(cards);
+      if (localStorage.getItem('lastMatchedCards')) {
+        setMatchedCards(JSON.parse(localStorage.getItem('lastMatchedCards')));
+        setShorts(JSON.parse(localStorage.getItem('lastShorts')));
+        setSearchText(JSON.parse(localStorage.getItem('lastSearch')));
+      }
     }
   }, [location])
 
@@ -157,6 +167,7 @@ function App() {
 
   useEffect(() => {
     console.log("Setting cards to render");
+    console.log(matchedCards);
     setCardsToRender(
       matchedCards.filter(card => {
         if (shorts && card.duration > 40) {
@@ -165,13 +176,19 @@ function App() {
         return true;
       })
     )
-    if (location === "/movies") {
-      setLastMainMatchedCards(matchedCards);
-    } else {
-      setLastSavedMatchedCards(matchedCards);
-    }
-    console.log(`Matched: ${matchedCards}`);
+    console.log(`Matched to render: ${matchedCards}`);
   }, [shorts, matchedCards])
+
+
+// save states to local after cards render
+  useEffect(() => {
+    console.log(searchText);
+    if (location === "/movies") {
+      localStorage.setItem('lastSearch', JSON.stringify(searchText));
+      localStorage.setItem('lastMatchedCards', JSON.stringify(matchedCards));
+      localStorage.setItem('lastShorts', JSON.stringify(shorts));
+    }
+  }, [cardsToRender])
 
   const handleCardsFilter = (searchInput, cards) => {
     const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description'];
@@ -224,14 +241,12 @@ function App() {
   }
 
   const handleCardSearch = ({search}) => {
-    setLastSearchText(search);
-    setSearchTimes(searchTimes + 1);
+    setSearchText(search);
     if (search === '') {
       console.log("Empty input!");
       return;
     }
     setPreloader(true);
-    console.log(preloader);
     if (location === "/movies") {
       if (cards.length === 0) {
         getMovies().then((cards) => {
@@ -275,8 +290,7 @@ function App() {
     cardsToRender,
     cardsToSearchIn,
     matchedCards,
-    searchTimes,
-    lastSearchText,
+    searchText,
     isMenuOpen
   }
 
@@ -298,7 +312,8 @@ function App() {
     setSavedCards,
     setShorts,
     setCardsLeft,
-    setIsMenuOpen
+    setIsMenuOpen,
+    setSearchText
   }
 
   // validation hook
