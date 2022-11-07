@@ -1,14 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { inputsValidation } from "../../../utils/constants";
 
 function SearchForm({states, handlers, stateSetters, validator}) {
 
-  const handleCheckboxClick = (e) => {
-    if (e.target.checked) {
-      stateSetters.setShorts(true)
-    } else {
-      stateSetters.setShorts(false)
-    }
+  const handleSliderClick = () => {
+    stateSetters.setShorts(!states.shorts)
   }
 
   return(
@@ -26,9 +22,10 @@ function SearchForm({states, handlers, stateSetters, validator}) {
           }</span>
       }
       <div className="search-form__switch">
-        <label className="search-form__switch-box" htmlFor="short-checkbox">
-          <input className="search-form__checkbox" type="checkbox" id="short-checkbox" onClick={handleCheckboxClick}/>
-          <div className="search-form__switch-slider"></div>
+        <label className="search-form__switch-box" onClick={handleSliderClick}>
+          <div 
+            className={`search-form__switch-slider ${states.shorts && "search-form__switch-slider_active"}`}
+          ></div>
         </label>
         <p className="search-form__short-title">Короткометражки</p>
       </div>

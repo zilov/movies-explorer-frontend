@@ -64,10 +64,6 @@
   cursor: pointer;
 }
 
-.search-form__checkbox {
-  display: none;
-}
-
 .search-form__switch-slider {
   padding: 0;
   border: none;
@@ -82,7 +78,7 @@
   transition: .4s;
 }
 
-.search-form__checkbox:checked + .search-form__switch-slider {
+.search-form__switch-slider_active {
   background-color: #2BE080;
   transform: translateX(16px);
 }
