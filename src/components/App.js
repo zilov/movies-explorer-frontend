@@ -322,10 +322,11 @@ function App() {
       errors, isValid
     },
     handleSubmit,
+    getValues,
   } = useForm({mode: "onBlur"})
 
   const validator = {
-    register, errors, isValid, handleSubmit
+    register, errors, isValid, handleSubmit, getValues,
   }
 
   return (

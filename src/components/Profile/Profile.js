@@ -6,10 +6,23 @@ function Profile({ onLogout, onEdit, states, validator }) {
   const [edit, setEdit] = useState(false);
   const [errorOnEdit, setErrorOnEdit] = useState(false);
   const [editSuccess, setEditSuccess] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const currentUser = states.currentUser;
 
   const toggleEdit = () => {
     setEdit(!edit);
+  }
+
+  const handleIsValid = () => {
+    const name = validator.getValues().name;
+    const email = validator.getValues().email;
+    if (validator.isValid) {
+      if (name === states.currentUser.name && email === states.currentUser.email) {
+        return setIsValid(false);
+      }
+      return setIsValid(true);
+    }
+    return setIsValid(false);
   }
 
   const handleEditSubmit = ({name, email}) => {
@@ -43,8 +56,13 @@ function Profile({ onLogout, onEdit, states, validator }) {
             className="profile__info-input"
             defaultValue={currentUser.name}
             disabled={!edit}
-            {...validator.register("name", inputsValidation.firstName)}
-          />
+            {...validator.register("name", {
+              ...inputsValidation.firstName,
+              onChange: () => {
+                handleIsValid();
+              }
+            })}
+            />
         </div>
         <div className="profile__info-block">
           <h3 className="profile__info-key">E-mail</h3>
@@ -52,7 +70,12 @@ function Profile({ onLogout, onEdit, states, validator }) {
             className="profile__info-input"
             defaultValue={currentUser.email}
             disabled={!edit}
-            {...validator.register("email", inputsValidation.email)}
+            {...validator.register("email", {
+              ...inputsValidation.email,
+              onChange: () => {
+                handleIsValid();
+              }
+            })}
           />
         </div>
         {
@@ -65,9 +88,9 @@ function Profile({ onLogout, onEdit, states, validator }) {
         {errorOnEdit && <span className="profile__edit-error">Ошибка при сохранении новых данных профиля!</span>}
         {
           edit
-            ? <button className="profile__edit-btn link-opacity" type="submit" disabled={!validator.isValid}>Сохранить</button>
-            : <button className="profile__edit-btn link-opacity" type="button" onClick={toggleEdit}>Редактировать</button>
+            && <button className="profile__edit-btn link-opacity" type="submit" disabled={!isValid}>Сохранить</button>
         }
+        { edit || <button className="profile__edit-btn link-opacity" type="button" onClick={toggleEdit}>Редактировать</button>}
       </form>
       <button className="profile__logout-btn link-opacity" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
     </section>
