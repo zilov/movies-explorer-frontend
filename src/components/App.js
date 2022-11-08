@@ -115,10 +115,8 @@ function App() {
     setMatchedCards([]);
     setSearchText('');
     setShorts(false);
-    handleCardDelete("636145a6d06489e02485b6dd")
     console.log("Search: ", searchText);
     if (location === "/saved-movies") {
-      setSearchText('bla')
       setMatchedCards(savedCards);
       setCardsToSearchIn(savedCards); 
     } else if (location === "/movies") {
@@ -240,7 +238,7 @@ function App() {
       .catch(err => console.log(`Cannot get saved cards list ${err}`))
   }
 
-  const handleCardSearch = ({search}) => {
+  const handleCardSearch = (search) => {
     setSearchText(search);
     if (search === '') {
       console.log("Empty input!");

@@ -3,24 +3,27 @@ import { inputsValidation } from "../../../utils/constants";
 
 function SearchForm({states, handlers, stateSetters, validator}) {
 
+  const handleInputChange = (e) => {
+    stateSetters.setSearchText(e.target.value);
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handlers.handleCardSearch(states.searchText);
+  }
+
   const handleSliderClick = () => {
     stateSetters.setShorts(!states.shorts)
   }
 
   return(
-    <form className="search-form" onSubmit={validator.handleSubmit(handlers.handleCardSearch)}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <input className="search-form__input"
         placeholder="Фильм"
-        {...validator.register("search", inputsValidation.search)}
+        value={states.searchText}
+        onChange={handleInputChange}
       />
-      <button className="search-form__submit-btn button-opacity" type="submit" disabled={!validator.isValid}></button>
-      {
-        validator.isValid &&
-          validator.errors?.['search'] && 
-          <span className="search-form__error">{
-            validator.errors?.["email"]?.message || "Ошибка валидации запроса!"
-          }</span>
-      }
+      <button className="search-form__submit-btn button-opacity" type="submit"></button>
       <div className="search-form__switch">
         <label className="search-form__switch-box" onClick={handleSliderClick}>
           <div 
