@@ -8,7 +8,7 @@ function MoviesCardList({states, handlers, stateSetters}) {
     <section className="movies-cards">
       <section className="movies-card-list">
         {
-          states.lastSearchText === '' || states.searchTimes === 0
+          states.location === "/movies" && states.searchText === ''
             ? <p className="movies-card-list__message">Введите ключевое слово</p>
             : states.preloader 
               ? <Preloader/> 
