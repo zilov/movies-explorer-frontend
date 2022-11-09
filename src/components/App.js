@@ -17,28 +17,46 @@ function App() {
   const location = useLocation().pathname;
 
   // Auth states and handlers
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const jwt = Cookies.get('jwt');
-    if (jwt) {
-      MainApi.getProfileInfo()
-        .then((res) => {
-          console.log(res);
-          setCurrentUser(res);
-          setLoggedIn(true);
-        })
-        .catch(() => {
-          console.log("Error in getting profile info!");
-          Cookies.remove('jwt')
-          setLoggedIn(false)
-        })
-    } else {
-      setLoggedIn(false);
-    }
-  }, [])
-
+  const jwt = Cookies.get('jwt');
+  const [loggedIn, setLoggedIn] = useState(jwt ? true : false);
   const navigate = useNavigate();
+
+  const auth = async (jwt) => {
+    const content = await MainApi.getProfileInfo()
+    .then((res) => {
+      setCurrentUser(res);
+      setLoggedIn(true);
+    })
+    .catch(() => {
+      console.log("Error in getting profile info!");
+      setLoggedIn(false);
+    })
+   return content;
+  }
+    
+  useEffect(() => {
+    if (loggedIn) {
+      if (!currentUser.name) {
+        auth();
+      }
+      getSavedMovies();
+      if (['/signin', '/signup'].includes(location)){
+        navigate('/movies');
+      } else {
+        console.log('Navigate to ', location);
+        navigate(location);
+      }
+    } else {
+      Cookies.remove('jwt');
+      setCurrentUser({});
+      setCards([]);
+      setSavedCards([]);
+      if (['/', '/signup', '/signin'].includes(location)) {
+        navigate(location);
+      }
+    }
+  }, [loggedIn]);
+
   
   const handleLoginSubmit = ({email, password}) => {
     // сравниваем данные с данными сервера, если успешно залогинились - обновляем токен
@@ -111,7 +129,7 @@ function App() {
 
 
   useEffect(() => {
-    console.log("Location is updated!");
+    console.log("Location is updated!", location);
     setMatchedCards([]);
     setSearchText('');
     setShorts(false);
@@ -129,20 +147,6 @@ function App() {
     }
   }, [location])
 
-
-  useEffect(() => {
-    if (loggedIn) {
-      MainApi.getProfileInfo()
-        .then((res) => setCurrentUser(res))
-        .catch(() => console.log("Error in getting profile info!"))
-      getSavedMovies();
-      navigate('/movies');
-    } else {
-      navigate('/');
-      setCards([]);
-      setSavedCards([]);
-    }
-  }, [loggedIn]);
 
   // setting max initial cards number on movies page 
   useEffect(() => {
@@ -180,7 +184,6 @@ function App() {
 
 // save states to local after cards render
   useEffect(() => {
-    console.log(searchText);
     if (location === "/movies") {
       localStorage.setItem('lastSearch', JSON.stringify(searchText));
       localStorage.setItem('lastMatchedCards', JSON.stringify(matchedCards));
@@ -233,7 +236,9 @@ function App() {
   const getSavedMovies = () => {
     return MainApi.getMovies()
       .then((res) => {
-        setSavedCards(res.map(item => item))    
+        if (res.length > 0) {
+          setSavedCards(res.map(item => item));
+        }
       })
       .catch(err => console.log(`Cannot get saved cards list ${err}`))
   }
@@ -271,6 +276,13 @@ function App() {
 
   const handleCardDelete = (cardId) => {
     MoviesApi.deleteMovieFromFavorite(cardId)
+      .then(() => {
+        if (location === "/saved-movies") {
+          setMatchedCards(matchedCards.filter((card) => card._id === cardId))
+        }
+        setSavedCards(savedCards.filter((card) => card._id === cardId))
+      })
+      .catch((err) => console.log("Error on card delete!"))
   }
 
   const states = {
