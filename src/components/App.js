@@ -11,6 +11,7 @@ import MoviesApi from '../utils/MoviesApi';
 import { apiConfig } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUser';
+import { useWindowWidth } from '@react-hook/window-size';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -66,7 +67,10 @@ function App() {
       .then((res) => {
         setLoggedIn(true);
       })
-      .catch(() => {console.log("Error in login submit!")})
+      .catch((err) => {
+        console.log("Error in login submit!");
+        console.log(err);
+      })
       .finally(setPreloader(false));
   }
 
@@ -118,10 +122,9 @@ function App() {
   const [shorts, setShorts] = useState(false);
   
   // cards visibility states
-  const [width, setWidth] = useState(window.innerWidth);
+  const width = useWindowWidth();
   const [visibleCards, setVisibleCards] = useState(0);
   const [addCardNumber, setAddCardNumber] = useState(0);
-  const [cardsLeft, setCardsLeft] = useState(0);
 
   // other states
   const [preloader, setPreloader] = useState(false);
@@ -150,7 +153,6 @@ function App() {
 
   // setting max initial cards number on movies page 
   useEffect(() => {
-    setWidth(window.innerWidth)
     if (width > 1279) {
       setVisibleCards(12);
       setAddCardNumber(3);
@@ -161,11 +163,8 @@ function App() {
       setVisibleCards(5);
       setAddCardNumber(2);
     }
-  }, [window.innerWidth]);
+  }, [width]);
 
-  useEffect(() => {
-    setCardsLeft(cardsToRender.length - visibleCards)
-  }, [shorts, cardsToRender])
 
   useEffect(() => {
     console.log("Setting cards to render");
@@ -265,7 +264,6 @@ function App() {
 
   const handleLoadMoreCards = () => {
     setVisibleCards(visibleCards + addCardNumber)
-    setCardsLeft(cardsLeft - addCardNumber)
   }
 
   const handleCardSave = (card) => {
@@ -296,7 +294,6 @@ function App() {
     width,
     visibleCards,
     addCardNumber,
-    cardsLeft,
     cardsToRender,
     cardsToSearchIn,
     matchedCards,
@@ -321,7 +318,6 @@ function App() {
     setPreloader,
     setSavedCards,
     setShorts,
-    setCardsLeft,
     setIsMenuOpen,
     setSearchText
   }

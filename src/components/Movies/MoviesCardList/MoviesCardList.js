@@ -1,8 +1,30 @@
+import { useEffect, useState } from "react";
 import Preloader from "../../Preloader/Preloader";
 import MoviesCard from "../MoviesCard/MoviesCard"
 
 
 function MoviesCardList({states, handlers, stateSetters}) {
+
+  const [cardsList, setCardsList] = useState([]);
+  const [cardsLeft, setCardsLeft] = useState([]);
+
+  useEffect(() => {
+    setCardsList(states.cardsToRender.slice(0, states.visibleCards));
+    setCardsLeft(states.cardsToRender.slice(states.visibleCards));
+  }, [states.cardsToRender])
+
+  const handleCardsLeft = () => {
+    if (cardsLeft.length < states.addCardNumber) {
+      return [];
+    } else {
+      return cardsLeft.slice(states.addCardNumber)
+    }
+  } 
+
+  const handleAddCards = () => {
+    setCardsList(cardsList.concat(cardsLeft.slice(0, states.addCardNumber)));
+    setCardsLeft(handleCardsLeft);
+  }
   
   return(
     <section className="movies-cards">
@@ -14,7 +36,7 @@ function MoviesCardList({states, handlers, stateSetters}) {
               ? <Preloader/> 
               : states.matchedCards.length === 0 
                 ? <p className="movies-card-list__message">Ничего не найдено ;(</p>
-                : states.cardsToRender.slice(0, states.visibleCards).map(item => {
+                : cardsList.map(item => {
                     return <MoviesCard
                     key={item.movieId}
                     isSaved={states.savedCards.some(card => {return card.movieId === item.movieId})}
@@ -29,11 +51,11 @@ function MoviesCardList({states, handlers, stateSetters}) {
       <button 
         className={
           `movies-card-list__more-btn 
-          ${states.cardsLeft <= 0 && "movies-card-list__more-btn_hidden"}
+          ${cardsLeft.length <= 0 && "movies-card-list__more-btn_hidden"}
           button-opacity`
         } 
         type="button"
-        onClick={handlers.handleLoadMoreCards}
+        onClick={handleAddCards}
       >Ещё</button>
     </section>
   )

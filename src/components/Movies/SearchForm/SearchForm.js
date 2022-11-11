@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { inputsValidation } from "../../../utils/constants";
-
 function SearchForm({states, handlers, stateSetters, validator}) {
 
   const handleInputChange = (e) => {
