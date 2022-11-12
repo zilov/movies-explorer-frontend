@@ -4,6 +4,7 @@
   width: 100%;
   height: 74px;
   display: flex;
+  grid-row: 1;
   flex-direction: column;
   align-items: center;
 }
