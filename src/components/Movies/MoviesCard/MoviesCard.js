@@ -1,19 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function MoviesCard({isSaved, cardInfo, states, handlers, stateSetters}) {
+function MoviesCard({cardInfo, states, handlers, stateSetters}) {
 
-  const [saved, setSaved] = useState(isSaved);
+  
+  const [isSaved, setIsSaved] = useState(states.savedCards.some(card => {return card.movieId === cardInfo.movieId}));
   
   const toggleSaveMovie = (e) => {
-    if (saved) {
-      setSaved(false);
-      handlers.handleCardDelete(states.savedCards.find(card => card.movieId === cardInfo.movieId)._id);
-      stateSetters.setSavedCards(states.savedCards.filter(card => {return card.movieId !== cardInfo.movieId}))
+    if (states.location === '/movies') {
+      if (isSaved) {
+        console.log(states.savedCards);
+        setIsSaved(false)
+        handlers.handleCardDelete(states.savedCards.find(card => card.movieId === cardInfo.movieId));
+      } else {
+        handlers.handleCardSave(cardInfo);
+        setIsSaved(true);
+      }
     } else {
-      setSaved(true);
-      handlers.handleCardSave(cardInfo).then((res) => {
-        stateSetters.setSavedCards([res, ...states.savedCards])
-      });
+      handlers.handleCardDelete(states.savedCards.find(card => card.movieId === cardInfo.movieId));
     }
   }
 
@@ -35,7 +38,7 @@ function MoviesCard({isSaved, cardInfo, states, handlers, stateSetters}) {
       </div>
       <button type="button" onClick={toggleSaveMovie} className={
         `movies-card__btn
-        ${states.location === "/movies" && saved && "movies-card__btn_active"} 
+        ${states.location === "/movies" && isSaved && "movies-card__btn_active"} 
         ${states.location === "/movies" ? "movies-card__btn_type_favorite" : "movies_card__btn_type_delete"}
         button-opacity`
       }

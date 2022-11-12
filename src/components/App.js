@@ -123,8 +123,8 @@ function App() {
   
   // filtered cards lists states
   const [cardsToSearchIn, setCardsToSearchIn] = useState(cards);
-  const [matchedCards, setMatchedCards] = useState([]);
   const [cardsToRender, setCardsToRender] = useState([]);
+  const [matchedCards, setMatchedCards] = useState([]);
   
   // search states
   const [searchText, setSearchText] = useState('');
@@ -143,22 +143,26 @@ function App() {
 
   useEffect(() => {
     console.log("Location is updated!", location);
-    setMatchedCards([]);
+    setCardsToRender([]);
     setSearchText('');
     setShorts(false);
     console.log("Search: ", searchText);
     if (location === "/saved-movies") {
-      setMatchedCards(savedCards);
-      setCardsToSearchIn(savedCards); 
+      // for (let c = 0; savedCards.length; c++) {
+      //   handleCardDelete(savedCards[c]._id)
+      // }
+      setCardsToRender(savedCards);
+      setCardsToSearchIn(savedCards);   
     } else if (location === "/movies") {
       setCardsToSearchIn(cards);
       if (localStorage.getItem('lastMatchedCards')) {
-        setMatchedCards(JSON.parse(localStorage.getItem('lastMatchedCards')));
+        setCardsToRender(JSON.parse(localStorage.getItem('lastMatchedCards')));
         setShorts(JSON.parse(localStorage.getItem('lastShorts')));
         setSearchText(JSON.parse(localStorage.getItem('lastSearch')));
       }
     }
   }, [location])
+
 
 
   // setting max initial cards number on movies page 
@@ -178,17 +182,28 @@ function App() {
 
   useEffect(() => {
     console.log("Setting cards to render");
-    console.log(matchedCards);
-    setCardsToRender(
-      matchedCards.filter(card => {
-        if (shorts && card.duration > 40) {
-          return false;
-        }
-        return true;
-      })
-    )
-    console.log(`Matched to render: ${matchedCards}`);
-  }, [shorts, matchedCards])
+    if (location === '/movies') {
+      setCardsToRender(
+        matchedCards.filter(card => {
+          if (shorts && card.duration > 40) {
+            return false;
+          }
+          return true;
+        })
+      )
+    } else {
+      setCardsToRender(
+        savedCards.filter(card => {
+          if (shorts && card.duration > 40) {
+            return false;
+          }
+          return true;
+        })
+      )
+    }
+
+    console.log(`Cards to render: ${matchedCards}`);
+  }, [shorts])
 
 
 // save states to local after cards render
@@ -283,21 +298,28 @@ function App() {
   }
 
   const handleCardSave = (card) => {
+    console.log('call to save');
     return MoviesApi.addMovieToFavorite(card)
-      .then(res => {return res})
+      .then(res => {
+        console.log(res);
+        setSavedCards([res, ...savedCards]);
+        console.log(savedCards);
+      })
       .catch(err => {
         console.log(`Cannot save card to MainApi!`);
         handleError(err);
       });
   }
 
-  const handleCardDelete = (cardId) => {
-    MoviesApi.deleteMovieFromFavorite(cardId)
+  const handleCardDelete = (card) => {
+    console.log('call to delete');
+    const cardId = card._id
+    return MoviesApi.deleteMovieFromFavorite(cardId)
       .then(() => {
         if (location === "/saved-movies") {
-          setMatchedCards(matchedCards.filter((card) => card._id === cardId))
+          setCardsToRender(cardsToRender.filter((card) => card._id !== cardId))
         }
-        setSavedCards(savedCards.filter((card) => card._id === cardId))
+        setSavedCards(savedCards.filter((card) => card._id !== cardId))
       })
       .catch((err) => {
         console.log("Error on card delete!");
@@ -310,6 +332,9 @@ function App() {
     const { message } = await err.json();
     console.log({status, message});
     setError({status, message});
+    if (status === 401 && loggedIn) {
+      setLoggedIn(false);
+    }
   }
 
   const states = {
@@ -325,7 +350,6 @@ function App() {
     addCardNumber,
     cardsToRender,
     cardsToSearchIn,
-    matchedCards,
     searchText,
     isMenuOpen,
     error

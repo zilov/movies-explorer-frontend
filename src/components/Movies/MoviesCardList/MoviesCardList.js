@@ -34,12 +34,11 @@ function MoviesCardList({states, handlers, stateSetters}) {
             ? <p className="movies-card-list__message">Введите ключевое слово</p>
             : states.preloader 
               ? <Preloader/> 
-              : states.matchedCards.length === 0 
+              : states.cardsToRender.length === 0 
                 ? <p className="movies-card-list__message">Ничего не найдено ;(</p>
                 : cardsList.map(item => {
                     return <MoviesCard
                     key={item.movieId}
-                    isSaved={states.savedCards.some(card => {return card.movieId === item.movieId})}
                     cardInfo={item}
                     states={states}
                     handlers={handlers}
