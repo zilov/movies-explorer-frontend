@@ -143,7 +143,7 @@ function App() {
 
   useEffect(() => {
     console.log("Location is updated!", location);
-    setCardsToRender([]);
+    setMatchedCards([]);
     setSearchText('');
     setShorts(false);
     console.log("Search: ", searchText);
@@ -151,12 +151,12 @@ function App() {
       // for (let c = 0; savedCards.length; c++) {
       //   handleCardDelete(savedCards[c]._id)
       // }
-      setCardsToRender(savedCards);
+      setMatchedCards(savedCards);
       setCardsToSearchIn(savedCards);   
     } else if (location === "/movies") {
       setCardsToSearchIn(cards);
       if (localStorage.getItem('lastMatchedCards')) {
-        setCardsToRender(JSON.parse(localStorage.getItem('lastMatchedCards')));
+        setMatchedCards(JSON.parse(localStorage.getItem('lastMatchedCards')));
         setShorts(JSON.parse(localStorage.getItem('lastShorts')));
         setSearchText(JSON.parse(localStorage.getItem('lastSearch')));
       }
@@ -182,6 +182,7 @@ function App() {
 
   useEffect(() => {
     console.log("Setting cards to render");
+    console.log(matchedCards);
     if (location === '/movies') {
       setCardsToRender(
         matchedCards.filter(card => {
@@ -203,7 +204,7 @@ function App() {
     }
 
     console.log(`Cards to render: ${matchedCards}`);
-  }, [shorts])
+  }, [shorts, matchedCards])
 
 
 // save states to local after cards render
@@ -217,6 +218,7 @@ function App() {
 
   const handleCardsFilter = (searchInput, cards) => {
     const keys = ['nameRU', 'nameEN'];
+    console.log(cards, searchInput);
     setMatchedCards(
       cards.filter(card => {
         let match = false;
@@ -348,6 +350,7 @@ function App() {
     width,
     visibleCards,
     addCardNumber,
+    matchedCards,
     cardsToRender,
     cardsToSearchIn,
     searchText,

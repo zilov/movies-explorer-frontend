@@ -30,7 +30,7 @@ function MoviesCardList({states, handlers, stateSetters}) {
     <section className="movies-cards">
       <section className="movies-card-list">
         {
-          states.location === "/movies" && states.searchText === ''
+          (states.location === "/movies" && states.searchText === '' && states.matchedCards.length === 0)
             ? <p className="movies-card-list__message">Введите ключевое слово</p>
             : states.preloader 
               ? <Preloader/> 
