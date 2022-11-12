@@ -28,7 +28,7 @@ function App() {
       setCurrentUser(res);
       setLoggedIn(true);
     })
-    .catch(() => {
+    .catch((err) => {
       console.log("Error in getting profile info!");
       setLoggedIn(false);
     })
@@ -69,7 +69,7 @@ function App() {
       })
       .catch((err) => {
         console.log("Error in login submit!");
-        console.log(err);
+        handleError(err);
       })
       .finally(setPreloader(false));
   }
@@ -82,7 +82,10 @@ function App() {
         handleLoginSubmit({email, password});
       }
     })
-    .catch(console.log("Error on register submit!"))
+    .catch((err) => {
+      console.log("Error on register submit!");
+      handleError(err);
+    })
     .finally(setPreloader(false));
   }
 
@@ -94,7 +97,10 @@ function App() {
         setLoggedIn(false);
       }
     })
-    .catch(console.log("Error on logout!"))
+    .catch((err) => {
+      console.log("Error on logout!")
+      handleError(err);
+    })
     .finally(setPreloader(false));
   }
 
@@ -103,7 +109,10 @@ function App() {
       .then(() => {
         setCurrentUser({name, email});
       })
-      .catch(() => console.log("Error on update user info!"))
+      .catch((err) => {
+        console.log("Error on update user info!");
+        handleError(err);
+      })
   }
 
   // cards states and handlers
@@ -129,6 +138,7 @@ function App() {
   // other states
   const [preloader, setPreloader] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [error, setError] = useState({});
 
 
   useEffect(() => {
@@ -228,7 +238,10 @@ function App() {
         setCards(cards);
         return cards;
       })
-      .catch(err => console.log(`Cannot get cards list ${err}`))
+      .catch((err) => {
+        console.log(`Cannot get cards list ${err}`);
+        handleError(err);
+      })
       .finally(() => setPreloader(false))
   }
 
@@ -239,7 +252,10 @@ function App() {
           setSavedCards(res.map(item => item));
         }
       })
-      .catch(err => console.log(`Cannot get saved cards list ${err}`))
+      .catch((err) => {
+        console.log(`Cannot get saved cards list!`)
+        handleError(err);
+      })
   }
 
   const handleCardSearch = (search) => {
@@ -269,7 +285,10 @@ function App() {
   const handleCardSave = (card) => {
     return MoviesApi.addMovieToFavorite(card)
       .then(res => {return res})
-      .catch(err => {console.log(`Cannot save card to MainApi: ${err}`)});
+      .catch(err => {
+        console.log(`Cannot save card to MainApi!`);
+        handleError(err);
+      });
   }
 
   const handleCardDelete = (cardId) => {
@@ -280,7 +299,17 @@ function App() {
         }
         setSavedCards(savedCards.filter((card) => card._id === cardId))
       })
-      .catch((err) => console.log("Error on card delete!"))
+      .catch((err) => {
+        console.log("Error on card delete!");
+        handleError(err);
+      })
+  }
+
+  const handleError = async (err) => {
+    const status = err.status;
+    const { message } = await err.json();
+    console.log({status, message});
+    setError({status, message});
   }
 
   const states = {
@@ -298,7 +327,8 @@ function App() {
     cardsToSearchIn,
     matchedCards,
     searchText,
-    isMenuOpen
+    isMenuOpen,
+    error
   }
 
   const handlers = {
@@ -310,6 +340,7 @@ function App() {
     handleCardDelete,
     handleLoadMoreCards,
     handleCardSearch,
+    handleError
   }
 
   const stateSetters = {
@@ -319,7 +350,8 @@ function App() {
     setSavedCards,
     setShorts,
     setIsMenuOpen,
-    setSearchText
+    setSearchText,
+    setError
   }
 
   // validation hook

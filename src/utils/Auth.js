@@ -6,7 +6,7 @@ function checkResponse(res, job) {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка в ${job}`)
+  return Promise.reject(res);
 }
 
 export const registerRequest = (email, password, name) => {
