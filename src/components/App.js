@@ -216,7 +216,7 @@ function App() {
   }, [cardsToRender])
 
   const handleCardsFilter = (searchInput, cards) => {
-    const keys = ['nameRU', 'nameEN', 'director', 'country', 'year', 'description'];
+    const keys = ['nameRU', 'nameEN'];
     setMatchedCards(
       cards.filter(card => {
         let match = false;
