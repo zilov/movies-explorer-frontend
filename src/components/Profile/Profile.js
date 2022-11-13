@@ -29,16 +29,17 @@ function Profile({ onLogout, onEdit, states, validator }) {
     }
   }
 
-  const handleEditSubmit = ({name, email}) => {
-    onEdit(name, email)
-      .then(() => {
-        setEdit(false);
-        setErrorOnEdit(false);
-        setEditSuccess(true);
-      })
-      .catch(() => {
-        setErrorOnEdit(true); 
-      })
+  const handleEditSubmit = async ({name, email}) => {
+    onEdit(name, email).then((res) => {
+      console.log(res);
+    if (res) {
+      setEdit(false);
+      setErrorOnEdit(false);
+      setEditSuccess(true);
+    } else {
+      setErrorOnEdit(true); 
+    }
+    })
     setTimeout(() => {
       setEditSuccess(false);
       setErrorOnEdit(false);

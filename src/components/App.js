@@ -124,10 +124,12 @@ function App() {
     return MainApi.updateProfileInfo(name, email)
       .then(() => {
         setCurrentUser({name, email});
+        return true;
       })
       .catch((err) => {
         console.log("Error on update user info!");
         handleError(err);
+        return false;
       })
   }
 
