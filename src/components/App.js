@@ -8,7 +8,7 @@ import { loginRequest, logoutRequest, registerRequest } from '../utils/Auth';
 import Cookies from 'js-cookie';
 import MainApi from '../utils/MainApi';
 import MoviesApi from '../utils/MoviesApi';
-import { apiConfig } from '../utils/constants';
+import { API_CONFIG, CARD_NUMBERS_ON_WIDTH, SHORTS_DURATION } from '../utils/constants';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUser';
 import { useWindowWidth } from '@react-hook/window-size';
@@ -180,14 +180,14 @@ function App() {
   // setting max initial cards number on movies page 
   useEffect(() => {
     if (width > 1279) {
-      setVisibleCards(12);
-      setAddCardNumber(3);
+      setVisibleCards(CARD_NUMBERS_ON_WIDTH[1280].visible);
+      setAddCardNumber(CARD_NUMBERS_ON_WIDTH[1280].add);
     } else if (width > 767) {
-      setVisibleCards(8);
-      setAddCardNumber(2);
+      setVisibleCards(CARD_NUMBERS_ON_WIDTH[768].visible);
+      setAddCardNumber(CARD_NUMBERS_ON_WIDTH[768].add);
     } else {
-      setVisibleCards(5);
-      setAddCardNumber(2);
+      setVisibleCards(CARD_NUMBERS_ON_WIDTH[320].visible);
+      setAddCardNumber(CARD_NUMBERS_ON_WIDTH[320].add);
     }
   }, [width]);
 
@@ -198,7 +198,7 @@ function App() {
     if (location === '/movies') {
       setCardsToRender(
         matchedCards.filter(card => {
-          if (shorts && card.duration > 40) {
+          if (shorts && card.duration > SHORTS_DURATION) {
             return false;
           }
           return true;
@@ -207,7 +207,7 @@ function App() {
     } else {
       setCardsToRender(
         savedCards.filter(card => {
-          if (shorts && card.duration > 40) {
+          if (shorts && card.duration > SHORTS_DURATION) {
             return false;
           }
           return true;
@@ -260,8 +260,8 @@ function App() {
             description: item.description,
             director: item.director,
             duration: item.duration,
-            image: `${apiConfig.moviesImagesUrl}${item.image.url}`,
-            thumbnail: `${apiConfig.moviesImagesUrl}${item.image.formats.thumbnail.url}`,
+            image: `${API_CONFIG.moviesImagesUrl}${item.image.url}`,
+            thumbnail: `${API_CONFIG.moviesImagesUrl}${item.image.formats.thumbnail.url}`,
             movieId: item.id,
           }})
         setCards(cards);

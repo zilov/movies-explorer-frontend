@@ -1,4 +1,4 @@
-export const apiConfig = {
+export const API_CONFIG = {
     mainApiUrl: "http://localhost:3000",
     moviesApiUrl: "https://api.nomoreparties.co/beatfilm-movies",
     moviesImagesUrl: "https://api.nomoreparties.co",
@@ -7,7 +7,15 @@ export const apiConfig = {
     },
   }
 
-export const inputsValidation = {
+export const CARD_NUMBERS_ON_WIDTH = {
+  1280: {add: 3, visible: 12},
+  768: {add: 2, visible: 8},
+  320: {add: 2, visible: 5}
+}
+
+export const SHORTS_DURATION = 40;
+
+export const INPUTS_VALIDATION = {
   firstName: {
     required: "Обязательное поле",
     minLength: {

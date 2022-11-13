@@ -1,4 +1,4 @@
-import { apiConfig } from "./constants";
+import { API_CONFIG } from "./constants";
 
 class MoviesApi {
   constructor(config) {
@@ -43,4 +43,4 @@ class MoviesApi {
   
 }
 
-export default new MoviesApi(apiConfig);
+export default new MoviesApi(API_CONFIG);

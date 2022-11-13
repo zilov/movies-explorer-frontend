@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { inputsValidation } from "../../utils/constants";
+import { INPUTS_VALIDATION } from "../../utils/constants";
 
 function Profile({ onLogout, onEdit, states, validator }) {
 
@@ -57,7 +57,7 @@ function Profile({ onLogout, onEdit, states, validator }) {
             defaultValue={currentUser.name}
             disabled={!edit}
             {...validator.register("name", {
-              ...inputsValidation.firstName,
+              ...INPUTS_VALIDATION.firstName,
               onChange: () => {
                 handleIsValid();
               }
@@ -71,7 +71,7 @@ function Profile({ onLogout, onEdit, states, validator }) {
             defaultValue={currentUser.email}
             disabled={!edit}
             {...validator.register("email", {
-              ...inputsValidation.email,
+              ...INPUTS_VALIDATION.email,
               onChange: () => {
                 handleIsValid();
               }

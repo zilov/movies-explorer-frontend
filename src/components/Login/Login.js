@@ -2,7 +2,7 @@ import FormSection from "../FormSection/FormSection";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import { useState } from "react";
-import { inputsValidation } from "../../utils/constants";
+import { INPUTS_VALIDATION } from "../../utils/constants";
 
 function Login({handleLogin, validator}) {
 
@@ -20,7 +20,7 @@ function Login({handleLogin, validator}) {
               inputSettings={{
                 type: "email",
                 id: "email",
-                validator: inputsValidation.email,
+                validator: INPUTS_VALIDATION.email,
               }}
             />
           <FormSection
@@ -29,7 +29,7 @@ function Login({handleLogin, validator}) {
             inputSettings={{
               type: "password",
               id: "password",
-              validator: inputsValidation.password
+              validator: INPUTS_VALIDATION.password
             }}
           />
           <button type="submit" className="login__submit-btn button-opacity" disabled={!validator.isValid}>Войти</button>

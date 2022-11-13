@@ -1,6 +1,6 @@
-const { apiConfig } = require("./constants");
+const { API_CONFIG } = require("./constants");
 
-const authUrl = apiConfig.mainApiUrl;
+const authUrl = API_CONFIG.mainApiUrl;
 
 function checkResponse(res, job) {
   if (res.ok) {

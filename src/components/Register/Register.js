@@ -1,7 +1,7 @@
 import FormSection from "../FormSection/FormSection";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/logo.svg";
-import { inputsValidation } from "../../utils/constants";
+import { INPUTS_VALIDATION } from "../../utils/constants";
 
 function Register({handleRegister, validator}) {
 
@@ -18,7 +18,7 @@ function Register({handleRegister, validator}) {
             header="Имя"
             inputSettings={{
               id: "name",
-              validator: inputsValidation.firstName
+              validator: INPUTS_VALIDATION.firstName
             }}
           />
           <FormSection
@@ -27,7 +27,7 @@ function Register({handleRegister, validator}) {
             inputSettings={{
               type: "email",
               id: "email",
-              validator: inputsValidation.email,
+              validator: INPUTS_VALIDATION.email,
             }}
           />
           <FormSection
@@ -36,7 +36,7 @@ function Register({handleRegister, validator}) {
             inputSettings={{
               type: "password",
               id: "password",
-              validator: inputsValidation.password
+              validator: INPUTS_VALIDATION.password
             }}
           />
           <button 
