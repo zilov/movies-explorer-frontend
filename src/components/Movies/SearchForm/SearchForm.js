@@ -1,4 +1,8 @@
+import { useEffect, useState } from "react";
+
 function SearchForm({states, handlers, stateSetters, validator}) {
+
+  const [isValid, setIsValid] = useState(true);
 
   const handleInputChange = (e) => {
     stateSetters.setSearchText(e.target.value);
@@ -6,7 +10,12 @@ function SearchForm({states, handlers, stateSetters, validator}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handlers.handleCardSearch(states.searchText);
+    if (states.searchText.length > 0) {
+      setIsValid(true);
+      handlers.handleCardSearch(states.searchText)
+    } else {
+      setIsValid(false);
+    }
   }
 
   const handleSliderClick = () => {
@@ -20,6 +29,7 @@ function SearchForm({states, handlers, stateSetters, validator}) {
         value={states.searchText}
         onChange={handleInputChange}
       />
+      {!isValid && <span className="search-form__error">Нужно ввести ключевое слово</span>}
       <button className="search-form__submit-btn button-opacity" type="submit"></button>
       <div className="search-form__switch">
         <label className="search-form__switch-box" onClick={handleSliderClick}>
