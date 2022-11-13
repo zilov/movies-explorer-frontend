@@ -6,7 +6,7 @@ function NotFound() {
     <section className="not-found">
       <p className="not-found__code">404</p>
       <p className="not-found__text">Страница не найдена</p>
-      <button className="not-found__button" type="button" onClick={() => navigate(-1)}>Назад</button>
+      <button className="not-found__button" type="button" onClick={() => {navigate(-3)}}>Назад</button>
     </section>
   )
 }
