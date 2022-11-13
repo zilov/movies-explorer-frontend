@@ -18,11 +18,15 @@ function Profile({ onLogout, onEdit, states, validator }) {
     const email = validator.getValues().email;
     if (validator.isValid) {
       if (name === states.currentUser.name && email === states.currentUser.email) {
-        return setIsValid(false);
+        setIsValid(false);
+        return false;
       }
-      return setIsValid(true);
+      setIsValid(true);
+      return true;
+    } else {
+      setIsValid(false);
+      return false
     }
-    return setIsValid(false);
   }
 
   const handleEditSubmit = ({name, email}) => {
@@ -33,7 +37,7 @@ function Profile({ onLogout, onEdit, states, validator }) {
         setEditSuccess(true);
       })
       .catch(() => {
-        setErrorOnEdit(true);
+        setErrorOnEdit(true); 
       })
     setTimeout(() => {
       setEditSuccess(false);
@@ -64,6 +68,12 @@ function Profile({ onLogout, onEdit, states, validator }) {
             })}
             />
         </div>
+        {
+            validator.errors?.["name"] && 
+              <span className="profile__info-input-err">
+                {validator.errors?.['name']?.message || "Ошибка валидации имени!"}
+              </span>
+        }
         <div className="profile__info-block">
           <h3 className="profile__info-key">E-mail</h3>
           <input 
@@ -79,18 +89,20 @@ function Profile({ onLogout, onEdit, states, validator }) {
           />
         </div>
         {
-          validator.isValid &&
-            validator.errors?.['email'] 
-            ? <span className="profile__edit-error">{validator.errors?.["email"]?.message || "Ошибка валидации e-mail!"}</span>
-            : validator.errors?.['name'] && <span className="profile__edit-error">{validator.errors?.["name"]?.message || "Ошибка валидации имени!"}</span>
+          validator.errors?.["email"] && 
+            <span className="profile__info-input-err">
+              {validator.errors?.['email']?.message || "Ошибка валидации e-mail!"}
+            </span>
         }
-        {editSuccess && <span className="profile__edit-success">Данные успешно обновлены!</span>}
-        {errorOnEdit && <span className="profile__edit-error">Ошибка при сохранении новых данных профиля!</span>}
-        {
-          edit
-            && <button className="profile__edit-btn link-opacity" type="submit" disabled={!isValid}>Сохранить</button>
-        }
-        { edit || <button className="profile__edit-btn link-opacity" type="button" onClick={toggleEdit}>Редактировать</button>}
+        <article className="profile-form__submit-box">
+          {editSuccess && <span className="profile__edit-success">Данные успешно обновлены!</span>}
+          {errorOnEdit && <span className="profile__edit-error">Ошибка при сохранении новых данных профиля!</span>}
+          {
+            edit
+              && <button className="profile__edit-btn link-opacity" type="submit" disabled={!isValid}>Сохранить</button>
+          }
+          { edit || <button className="profile__edit-btn link-opacity" type="button" onClick={toggleEdit}>Редактировать</button>}
+        </article>
       </form>
       <button className="profile__logout-btn link-opacity" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
     </section>
