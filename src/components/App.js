@@ -75,28 +75,32 @@ function App() {
     // сравниваем данные с данными сервера, если успешно залогинились - обновляем токен
     // если не успешно - открываем попап ошибки
     setPreloader(true);
-    loginRequest(email, password)
+    return loginRequest(email, password)
       .then((res) => {
         setLoggedIn(true);
+        return true;
       })
       .catch((err) => {
         console.log("Error in login submit!");
         handleError(err);
+        return false;
       })
       .finally(setPreloader(false));
   }
 
   const handleRegisterSubmit = ({email, password, name}) => {
     setPreloader(true);
-    registerRequest(email, password, name).then((res) => {
+    return registerRequest(email, password, name).then((res) => {
       if (res.data) {
         setPreloader(false)
         handleLoginSubmit({email, password});
+        return true;
       }
     })
     .catch((err) => {
       console.log("Error on register submit!");
       handleError(err);
+      return false;
     })
     .finally(setPreloader(false));
   }
@@ -331,11 +335,13 @@ function App() {
 
   const handleError = async (err) => {
     const status = err.status;
-    const { message } = await err.json();
-    console.log({status, message});
-    setError({status, message});
-    if (status === 401 && loggedIn) {
-      setLoggedIn(false);
+    if (status) {
+      const { message } = await err.json();
+      setError({status, message});
+    } else {
+      const status = 500;
+      const message = '500: На сервере произошла ошибка или он недоступен.'
+      setError({status, message});
     }
   }
 
@@ -378,7 +384,7 @@ function App() {
     setShorts,
     setIsMenuOpen,
     setSearchText,
-    setError
+    setError,
   }
 
   // validation hook

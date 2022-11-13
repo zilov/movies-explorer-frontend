@@ -4,7 +4,24 @@ import logo from "../../images/logo.svg";
 import { useState } from "react";
 import { INPUTS_VALIDATION } from "../../utils/constants";
 
-function Login({handleLogin, validator}) {
+function Login({handleLogin, states, stateSetters, validator}) {
+
+  const [errorOnLogin, setErrorOnLogin] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
+
+  const handleLoginSubmit = async ({email, password}) => {
+    const res = await handleLogin({email, password});
+    if (res) {
+      setLoginSuccess(true);
+    } else {
+      setErrorOnLogin(true);
+    }
+    setTimeout(() => {
+      setLoginSuccess(false);
+      setErrorOnLogin(false);
+      stateSetters.setError({});
+    }, 5000)
+  }
 
   return(
     <section className="login">
@@ -13,7 +30,7 @@ function Login({handleLogin, validator}) {
             <img src={logo} alt="Лого" className="login__logo"/>
           </NavLink>
         <h2 className="login__title">Рады видеть!</h2>
-        <form id="form-login" className="login__form" onSubmit={validator.handleSubmit(handleLogin)}>
+        <form id="form-login" className="login__form" onSubmit={validator.handleSubmit(handleLoginSubmit)}>
           <FormSection
               validator={validator}
               header="E-mail"
@@ -32,7 +49,11 @@ function Login({handleLogin, validator}) {
               validator: INPUTS_VALIDATION.password
             }}
           />
-          <button type="submit" className="login__submit-btn button-opacity" disabled={!validator.isValid}>Войти</button>
+          <div className="login__submit-box">
+            {loginSuccess && <span className="login__submit-success">Вход успешен!</span>}
+            {errorOnLogin && <span className="login__submit-err">{states.error.message}</span>}
+            <button type="submit" className="login__submit-btn button-opacity" disabled={!validator.isValid}>Войти</button>
+          </div>
         </form>
         <p className="login__paragraph">
           Еще не зарегистрированы?  <NavLink to="/signup" className="login__link link-opacity">Регистрация</NavLink>

@@ -24,12 +24,16 @@ function Main({states, handlers, stateSetters, validator}) {
         <Route path="/signup" element={
           <Register
             handleRegister = {handlers.handleRegisterSubmit}
+            states = {states}
+            stateSetters = {stateSetters}
             validator={validator}
           />
         }/>
         <Route path="/signin" element={
           <Login
             handleLogin={handlers.handleLoginSubmit}
+            states = {states}
+            stateSetters = {stateSetters}
             validator={validator}
           />
         }/>
