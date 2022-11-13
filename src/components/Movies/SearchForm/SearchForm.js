@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function SearchForm({states, handlers, stateSetters, validator}) {
 

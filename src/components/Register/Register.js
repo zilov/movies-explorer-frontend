@@ -59,7 +59,7 @@ function Register({handleRegister, states, stateSetters, validator}) {
           />
           <div className="register__submit-box">
             {registerSuccess && <span className="register__submit-success">Вход успешен!</span>}
-            {errorOnRegister && <span className="register__submit-err">{states.error.message}</span>}
+            {errorOnRegister && <span className="register__submit-err">{states.error.message || 'Ошибка при попытке зарегистрироваться!'}</span>}
             <button 
               type="submit"
               className="register__submit-btn button-opacity"

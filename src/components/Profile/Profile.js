@@ -97,7 +97,9 @@ function Profile({ onLogout, onEdit, states, validator }) {
         }
         <article className="profile-form__submit-box">
           {editSuccess && <span className="profile__edit-success">Данные успешно обновлены!</span>}
-          {errorOnEdit && <span className="profile__edit-error">Ошибка при сохранении новых данных профиля!</span>}
+          {errorOnEdit && <span className="profile__edit-error">
+            {states.error.message || 'Ошибка при сохранении новых данных профиля!'}
+          </span>}
           {
             edit
               && <button className="profile__edit-btn link-opacity" type="submit" disabled={!isValid}>Сохранить</button>

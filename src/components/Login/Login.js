@@ -51,7 +51,7 @@ function Login({handleLogin, states, stateSetters, validator}) {
           />
           <div className="login__submit-box">
             {loginSuccess && <span className="login__submit-success">Вход успешен!</span>}
-            {errorOnLogin && <span className="login__submit-err">{states.error.message}</span>}
+            {errorOnLogin && <span className="login__submit-err">{states.error.message || 'Ошибка при попытке войти!'}</span>}
             <button type="submit" className="login__submit-btn button-opacity" disabled={!validator.isValid}>Войти</button>
           </div>
         </form>
