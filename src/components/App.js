@@ -23,16 +23,28 @@ function App() {
   const navigate = useNavigate();
 
   const auth = async (jwt) => {
-    const content = await MainApi.getProfileInfo()
-    .then((res) => {
-      setCurrentUser(res);
-      setLoggedIn(true);
-    })
-    .catch((err) => {
-      console.log("Error in getting profile info!");
-      setLoggedIn(false);
-    })
-   return content;
+    const user = await MainApi.getProfileInfo()
+      .then((res) => {
+        setCurrentUser(res);
+        setLoggedIn(true);
+        return true
+      })
+      .catch((err) => {
+        console.log("Error in getting profile info!");
+        setLoggedIn(false);
+        return false
+      })
+    const cards = await MainApi.getMovies()
+      .then((res) => {
+        if (res.length > 0) {
+          setSavedCards(res.map(item => item));
+        }
+      })
+      .catch((err) => {
+        console.log(`Cannot get saved cards list!`)
+        handleError(err);
+      })
+   return {user, cards};
   }
     
   useEffect(() => {
@@ -40,7 +52,6 @@ function App() {
       if (!currentUser.name) {
         auth();
       }
-      getSavedMovies();
       if (['/signin', '/signup'].includes(location)){
         navigate('/movies');
       } else {
@@ -52,6 +63,7 @@ function App() {
       setCurrentUser({});
       setCards([]);
       setSavedCards([]);
+      localStorage.clear();
       if (['/', '/signup', '/signin'].includes(location)) {
         navigate(location);
       }
@@ -262,19 +274,6 @@ function App() {
       .finally(() => setPreloader(false))
   }
 
-  const getSavedMovies = () => {
-    return MainApi.getMovies()
-      .then((res) => {
-        if (res.length > 0) {
-          setSavedCards(res.map(item => item));
-        }
-      })
-      .catch((err) => {
-        console.log(`Cannot get saved cards list!`)
-        handleError(err);
-      })
-  }
-
   const handleCardSearch = (search) => {
     setSearchText(search);
     if (search === '') {
@@ -309,6 +308,7 @@ function App() {
       })
       .catch(err => {
         console.log(`Cannot save card to MainApi!`);
+        setLoggedIn(false);
         handleError(err);
       });
   }
