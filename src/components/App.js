@@ -34,7 +34,12 @@ function App() {
         setLoggedIn(false);
         return false
       })
-    const cards = await MainApi.getMovies()
+    const cards = getSavedCards()
+   return {user, cards};
+  }
+
+  const getSavedCards = async () => {
+    return await MainApi.getMovies()
       .then((res) => {
         if (res.length > 0) {
           setSavedCards(res.map(item => item));
@@ -44,7 +49,6 @@ function App() {
         console.log(`Cannot get saved cards list!`)
         handleError(err);
       })
-   return {user, cards};
   }
     
   useEffect(() => {
@@ -166,9 +170,6 @@ function App() {
     setShorts(false);
     console.log("Search: ", searchText);
     if (location === "/saved-movies") {
-      // for (let c = 0; savedCards.length; c++) {
-      //   handleCardDelete(savedCards[c]._id)
-      // }
       setMatchedCards(savedCards);
       setCardsToSearchIn(savedCards);   
     } else if (location === "/movies") {
@@ -180,6 +181,13 @@ function App() {
       }
     }
   }, [location])
+
+  useEffect(() => {
+    if (location === "/saved-movies") {
+      setMatchedCards(savedCards);
+      setCardsToSearchIn(savedCards);   
+    }
+  }, [savedCards])
 
 
 
