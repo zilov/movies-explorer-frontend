@@ -31,14 +31,13 @@ function Profile({ onLogout, onEdit, states, validator }) {
 
   const handleEditSubmit = async ({name, email}) => {
     onEdit(name, email).then((res) => {
-      console.log(res);
-    if (res) {
-      setEdit(false);
-      setErrorOnEdit(false);
-      setEditSuccess(true);
-    } else {
-      setErrorOnEdit(true); 
-    }
+      if (res) {
+        setEdit(false);
+        setErrorOnEdit(false);
+        setEditSuccess(true);
+      } else {
+        setErrorOnEdit(true); 
+      }
     })
     setTimeout(() => {
       setEditSuccess(false);

@@ -8,7 +8,6 @@ function MoviesCard({cardInfo, states, handlers, stateSetters}) {
   const toggleSaveMovie = (e) => {
     if (states.location === '/movies') {
       if (isSaved) {
-        console.log(states.savedCards);
         setIsSaved(false)
         handlers.handleCardDelete(states.savedCards.find(card => card.movieId === cardInfo.movieId));
       } else {

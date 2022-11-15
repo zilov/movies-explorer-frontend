@@ -168,7 +168,6 @@ function App() {
     setMatchedCards([]);
     setSearchText('');
     setShorts(false);
-    console.log("Search: ", searchText);
     if (location === "/saved-movies") {
       setMatchedCards(savedCards);
       setCardsToSearchIn(savedCards);   
@@ -207,8 +206,6 @@ function App() {
 
 
   useEffect(() => {
-    console.log("Setting cards to render");
-    console.log(matchedCards);
     if (location === '/movies') {
       setCardsToRender(
         matchedCards.filter(card => {
@@ -228,8 +225,6 @@ function App() {
         })
       )
     }
-
-    console.log(`Cards to render: ${matchedCards}`);
   }, [shorts, matchedCards])
 
 
@@ -244,7 +239,6 @@ function App() {
 
   const handleCardsFilter = (searchInput, cards) => {
     const keys = ['nameRU', 'nameEN'];
-    console.log(cards, searchInput);
     setMatchedCards(
       cards.filter(card => {
         let match = false;
@@ -313,22 +307,17 @@ function App() {
   }
 
   const handleCardSave = (card) => {
-    console.log('call to save');
     return MoviesApi.addMovieToFavorite(card)
       .then(res => {
-        console.log(res);
         setSavedCards([res, ...savedCards]);
-        console.log(savedCards);
       })
       .catch(err => {
         console.log(`Cannot save card to MainApi!`);
-        setLoggedIn(false);
         handleError(err);
       });
   }
 
   const handleCardDelete = (card) => {
-    console.log('call to delete');
     const cardId = card._id
     return MoviesApi.deleteMovieFromFavorite(cardId)
       .then(() => {
@@ -345,6 +334,9 @@ function App() {
 
   const handleError = async (err) => {
     const status = err.status;
+    if (status === 401) {
+      setLoggedIn(false);
+    }
     if (status) {
       const { message } = await err.json();
       setError({status, message});

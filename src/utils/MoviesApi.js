@@ -11,7 +11,7 @@ class MoviesApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка в ${job}`)
+    return Promise.reject(res);
   }
   
   getMovies() {
