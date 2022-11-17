@@ -12,15 +12,31 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from '../NotFound/NotFound';
 import Navigation from "../Navigation/Navigation";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
-function Main({location}) {
+function Main({states, handlers, stateSetters, validator}) {
+
   return(
     <main className="main-block">
-      <Navigation location={location}/>
+      <Navigation states={states} stateSetters={stateSetters}/>
       <Routes>
-        <Route path="/signup" element={<Register/>}/>
-        <Route path="/signin" element={<Login/>}/>
+        <Route path="/signup" element={
+          <Register
+            handleRegister = {handlers.handleRegisterSubmit}
+            states = {states}
+            stateSetters = {stateSetters}
+            validator={validator}
+          />
+        }/>
+        <Route path="/signin" element={
+          <Login
+            handleLogin={handlers.handleLoginSubmit}
+            states = {states}
+            stateSetters = {stateSetters}
+            validator={validator}
+          />
+        }/>
         <Route exact path="/" element={
           <section className="main-page">
             <Promo className="main__section-content"/>
@@ -31,9 +47,30 @@ function Main({location}) {
             <Portfolio className="main__section-content"/>
           </section>
         }/>
-        <Route path="/movies" element={<Movies/>}/>
-        <Route path="/saved-movies" element={<SavedMovies/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/movies" element={<ProtectedRoute states={states} element={
+          <Movies 
+            states={states}
+            handlers={handlers}
+            stateSetters={stateSetters}
+            validator={validator}
+          />}
+        />}/>
+        <Route path="/saved-movies" element={<ProtectedRoute states={states} element={
+          <SavedMovies 
+            states={states}
+            handlers={handlers}
+            stateSetters={stateSetters}
+            validator={validator}
+          />}
+        />}/>
+        <Route path="/profile" element={<ProtectedRoute states={states} element={
+          <Profile
+            onEdit={handlers.handleUpdateUserInfo} 
+            onLogout={handlers.handleLogoutSubmit}
+            validator={validator}
+            states={states}
+          />
+        }/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </main>

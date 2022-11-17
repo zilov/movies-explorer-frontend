@@ -21,8 +21,16 @@
   margin-top: 20px;
 }
 
-.login__submit-btn {
+.login__submit-box {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
   margin-top: calc(179px - 22px);
+}
+
+.login__submit-btn {
+  width: 100%;
+  margin-top: 5px;
   padding: 0;
   height: 45px;
   color: white;
@@ -31,6 +39,34 @@
   border: none;
   font-size: 14px;
   line-height: 17px;
+}
+
+.login__submit-err {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  color: #e75d72;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.login__submit-success {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  color: #0be985;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.login__submit-btn:disabled {
+  background-color: rgb(0, 0, 0, 0.6);
 }
 
 .login__paragraph {
@@ -68,7 +104,7 @@
     margin-top: 60px;
   }
 
-  .login__submit-btn {
-    margin-top: 245px;
+  .login__submit-box {
+    margin-top: 157px;
   }
 }

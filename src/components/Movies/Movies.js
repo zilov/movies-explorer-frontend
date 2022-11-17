@@ -1,12 +1,21 @@
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 
-function Movies() {
+function Movies({states, handlers, stateSetters, validator}) {
+  
   return(
   <section className="movies">
-    <SearchForm/>
-    <MoviesCardList/>
-    <button className="movies__more-btn button-opacity" type="button">Ещё</button>
+    <SearchForm
+      states = {states}
+      handlers = {handlers}
+      stateSetters = {stateSetters}
+      validator={validator}
+    />
+    <MoviesCardList
+      states = {states}
+      handlers = {handlers}
+      stateSetters = {stateSetters}
+    />
   </section>
   )
 }
